@@ -1,11 +1,11 @@
 {
-  "name": "vanilla-app-template",
+  "name": "goit-js-final-project",
   "private": true,
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build --base=/vanilla-app-template/",
+    "dev": "vite --open",
+    "build": "vite build --base=/goit-js-final-project/",
     "preview": "vite preview"
   },
   "devDependencies": {
