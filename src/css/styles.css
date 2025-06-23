@@ -1,3 +1,6 @@
+/* Libs */
+@import url('izitoast/dist/css/iziToast.min.css');
+
 /* Variables */
 @import url('./utils/variables.css');
 
@@ -16,4 +19,3 @@
 @import url('./sections/footer.css');
 @import url('./sections/mobile-menu.css');
 @import url('./sections/modal.css');
-

@@ -1,5 +1,3 @@
-import 'izitoast/dist/css/iziToast.min.css';
-
 function showMessage(message, isError) {
   iziToast.show({
     icon: isError ? 'fa-solid fa-circle-exclamation' : 'fa-solid fa-check',
