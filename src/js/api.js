@@ -1,44 +1,43 @@
 import axios from 'axios';
-import iziToast from 'izitoast';
-import { getIziToastOptions } from './izitoast.js';
 
-const BASE_URL = 'https://your-energy.b.goit.study/api';
+import { showErrorMessage, showSuccessMessage } from './izitoast.js';
 
-export async function getQuote() {
+axios.defaults.baseURL = 'https://your-energy.b.goit.study/api';
+
+function handleApiError(e) {
+  showErrorMessage(
+    e.response?.data?.message ||
+      `An error occurred: ${e.message}, please try again later!`
+  );
+}
+
+async function makeRequest(method, ...args) {
   try {
-    const { data } = await axios.get(`${BASE_URL}/quote`);
+    const { data } = await axios[method](...args);
     return data;
   } catch (e) {
-    iziToast.show(getIziToastOptions({
-      message: e.response?.data?.message || `An error occurred: ${e.message}, please try again later!`,
-      isErrorType: true
-    }));
-    return undefined;
+    handleApiError(e);
+    return null;
   }
 }
 
-export async function getFilters(filter, page = 1, limit = 12) {
+export function getQuote() {
+  return makeRequest('get', '/quote');
+}
+
+export function getFilters(filter, page = 1, limit = 12) {
   const params = {
     // Available values for filter: Body parts, Muscles, Equipment
     filter,
     page,
-    limit
+    limit,
   };
 
-  try {
-    const { data } = await axios.get(`${BASE_URL}/filters`, { params });
-    return data;
-  } catch (e) {
-    iziToast.show(getIziToastOptions({
-      message: e.response?.data?.message || `An error occurred: ${e.message}, please try again later!`,
-      isErrorType: true
-    }));
-    return undefined;
-  }
+  return makeRequest('get', '/filters', { params });
 }
 
-export async function getExercises(filters, keyword, page = 1, limit = 10) {
-  const { bodypart, muscles, equipment } = filters
+export function getExercises(filters, keyword, page = 1, limit = 10) {
+  const { bodypart, muscles, equipment } = filters;
   const params = {
     // Available values : back, cardio, chest, lower arms, lower legs, neck, shoulders, upper arms, upper legs, waist
     bodypart,
@@ -48,63 +47,35 @@ export async function getExercises(filters, keyword, page = 1, limit = 10) {
     equipment,
     keyword,
     page,
-    limit
+    limit,
   };
 
-  try {
-    const { data } = await axios.get(`${BASE_URL}/exercises`, { params });
-    return data;
-  } catch (e) {
-    iziToast.show(getIziToastOptions({
-      message: e.response?.data?.message || `An error occurred: ${e.message}, please try again later!`,
-      isErrorType: true
-    }));
-    return undefined;
-  }
+  return makeRequest('get', '/exercises', { params });
 }
 
-export async function getExercise(id) {
-  try {
-    const { data } = await axios.get(`${BASE_URL}/exercises/${id}`);
-    return data;
-  } catch (e) {
-    iziToast.show(getIziToastOptions({
-      message: e.response?.data?.message || `An error occurred: ${e.message}, please try again later!`,
-      isErrorType: true
-    }));
-    return undefined;
-  }
+export function getExercise(id) {
+  return makeRequest('get', `/exercises/${id}`);
 }
 
 export async function postSubscription(email) {
-  try {
-    const { data } = await axios.post(`${BASE_URL}/subscription`, { email });
-    iziToast.show(getIziToastOptions({
-      message: data.message,
-      isErrorType: false
-    }));
-  } catch (e) {
-    iziToast.show(getIziToastOptions({
-      message: e.response?.data?.message || `An error occurred: ${e.message}, please try again later!`,
-      isErrorType: true
-    }));
+  const data = await makeRequest('post', '/subscription', { email });
+
+  if (data) {
+    showSuccessMessage('Exercise details fetched successfully.');
   }
+  return data;
 }
 
 export async function patchRating(id, rate, email, review) {
-  try {
-    const { data } = await axios.patch(`${BASE_URL}/exercises/${id}/rating`, { rate, email, review });
-    iziToast.show(getIziToastOptions({
-      message: 'Thank you for your feedback.',
-      isErrorType: false
-    }));
-    return data;
-  } catch (e) {
-    iziToast.show(getIziToastOptions({
-      message: e.response?.data?.message || `An error occurred: ${e.message}, please try again later!`,
-      isErrorType: true
-    }));
-    return undefined;
-  }
-}
+  const data = await makeRequest('patch', `/exercises/${id}/rating`, {
+    rate,
+    email,
+    review,
+  });
 
+  if (data) {
+    showSuccessMessage('Thank you for your feedback.');
+  }
+
+  return data;
+}
