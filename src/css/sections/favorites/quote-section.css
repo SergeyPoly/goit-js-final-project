@@ -1,3 +1,89 @@
 .favorite-quote {
-  width: 494px;
+  width: 335px;
+}
+
+.quote-card {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 20px;
+  width: 335px;
+  height: 206px;
+  border-radius: 20px;
+  background-color: #242424;
+  color:white;
+}
+
+.exercise-icon-container {
+  min-width: 52px;
+}
+
+.card-header-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.card-header {
+  width: 160px;
+  font-size: 20px;
+  color: var(--primary);
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.header-quote-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.card-description {
+  color: #F4F4F499;
+  font-size: 14px;
+  line-height: 18px;
+  margin-bottom: 16px;
+}
+
+.card-author {
+  font-family: var(--primary-font);
+  font-size: 14px;
+  line-height: 18px;
+}
+
+@media (min-width: 768px) {
+
+  .favorite-quote {
+    width: 704px;
+  }
+
+  .quote-card {
+    width: 704px;
+    height: 220px;
+    padding: 40px;
+  }
+
+  .exercise-icon-container {
+    min-width: 50px;
+  }
+
+  .card-header-container {
+    margin-bottom: 6px;
+  }
+
+  .card-header {
+    width: 192px;
+    font-size: 24px;
+    line-height: 32px;
+  }
+
+  .header-quote-icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .card-description {
+    margin-bottom: 18px;
+  }
+
 }
