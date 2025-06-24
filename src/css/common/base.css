@@ -5,7 +5,7 @@ html {
 body {
   font-family: var(--primary-font);
   font-size: 14px;
-  line-height: 18px;
+  line-height: 1.28;
   color: var(--secondary);
   background-color: var(--primary);
 }
@@ -23,7 +23,8 @@ body {
   overflow: hidden;
 }
 
-.favorites-content, .home-content {
+.favorites-content,
+.home-content {
   display: flex;
   column-gap: 32px;
 }
@@ -45,8 +46,8 @@ body {
 }
 
 .section-title {
-  font-size: 44px;
-  line-height: 48px;
+  font-size: 28px;
+  line-height: 38px;
   letter-spacing: 0.02em;
   margin-bottom: 20px;
   font-weight: 400;
@@ -114,7 +115,13 @@ body {
   }
 
   .favorites-content {
-    grid-template-columns: 494px ;
+    grid-template-columns: 494px;
+  }
+
+  .section-title {
+    font-size: 44px;
+    line-height: 48px;
+    margin-bottom: 32px;
   }
 }
 
@@ -124,7 +131,8 @@ body {
     padding: 0 32px;
   }
 
-  .favorites-content, .home-content {
+  .favorites-content,
+  .home-content {
     flex-direction: row;
   }
 

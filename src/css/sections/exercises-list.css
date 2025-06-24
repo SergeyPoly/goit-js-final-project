@@ -1,0 +1,144 @@
+.exercises-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 32px;
+}
+
+.exercise-card {
+  background-color: var(--white-color);
+  width: 344px;
+  height: 141px;
+  border-radius: 15px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.exercise-card-header {
+  display: flex;
+  align-items: center;
+}
+
+.exercise-card-header-middle {
+  flex: 1;
+}
+
+.exercise-equipment {
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1;
+  letter-spacing: 0;
+  padding: 5px 8px;
+  border: 1px solid var(--secondary);
+  border-radius: 15px;
+}
+
+.card-icon-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: opacity var(--primary-transition);
+}
+
+.card-icon-button:hover {
+  opacity: 0.7;
+}
+
+.card-icon-button:active {
+  opacity: 0.5;
+}
+
+.remove-favorite-button {
+  width: 16px;
+  height: 16px;
+  margin-left: 8px;
+}
+
+.remove-favorite-icon {
+  width: 12px;
+  height: 13.33px;
+  fill: none;
+}
+
+.rating-button {
+  font-size: 12px;
+  line-height: 1.5;
+  margin-left: 16px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: opacity var(--primary-transition);
+}
+
+.rating-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.start-button {
+  font-size: 16px;
+  line-height: 1.5;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.start-button:hover {
+  text-decoration: underline;
+}
+
+.arrow-icon {
+  width: 13px;
+  height: 13px;
+}
+
+.exercise-card-body {
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+}
+
+.exercise-name-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 16px;
+}
+
+.exercise-name {
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 1.33;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  /* flex: 1; */
+}
+
+.exercise-name:first-letter {
+  text-transform: capitalize;
+}
+
+.exercise-card-footer {
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+  gap: 16px;
+}
+
+.card-footer-text {
+  font-size: 12px;
+  line-height: 1.5;
+  letter-spacing: 0px;
+  flex-grow: 1;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.card-footer-text .secondary-text {
+  color: var(--secondary40);
+}
