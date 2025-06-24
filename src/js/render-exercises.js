@@ -1,4 +1,4 @@
-import { getFilters, getExercises } from './api.js';
+import { getFilters, getExercises } from './services/api';
 
 window.addEventListener('DOMContentLoaded', () => {
   if (window.location.pathname === '/') {

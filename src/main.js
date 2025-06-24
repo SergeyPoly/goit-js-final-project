@@ -1,4 +1,3 @@
-import { toggleHideDOMElement } from './js/renders.js';
 import { toggleHideDOMElement } from './js/renderers/utils';
 import { renderQuote } from './js/renderers/quote';
 import { getExercises } from './js/services/api';
