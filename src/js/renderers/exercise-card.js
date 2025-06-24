@@ -2,7 +2,9 @@ import { EXERCISE_CARD_ACTIONS, EXERCISE_CARD_CLASS_NAME } from '../constants';
 
 export function renderExerciseCard(exercise, isFavorite) {
   return `
-    <div class="${EXERCISE_CARD_CLASS_NAME}" data-id="${exercise._id}">
+    <div class="${EXERCISE_CARD_CLASS_NAME} ${
+    isFavorite ? 'favorite' : ''
+  }" data-id="${exercise._id}">
       <div class="exercise-card-header">
       <p class="exercise-equipment">${exercise.equipment}</p>
         <div class="exercise-card-header-middle">
