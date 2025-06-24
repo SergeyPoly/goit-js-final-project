@@ -4,12 +4,14 @@
   --white-color: #ffffff;
   --primary: #F4F4F4;
   --primary60: #f4f4f499;
+  --primary40: #f4f4f466;
   --secondary: #242424;
   --secondary50: #24242480;
   --secondary40: #24242466;
   --secondary60: #24242499;
   --inactive-pagination: #D4D4D4;
   --footer-sub-text: #C6CDD1;
+  --cards-overlay: rgba(17, 17, 17, 0.50);
 
   --primary-transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
   --modal-transition: 300ms ease-in-out;

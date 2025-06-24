@@ -1,5 +1,6 @@
 import { toggleHideDOMElement } from './js/renders.js';
-import { renderQuote } from './js/render-quote.js';
+// import { renderQuote } from './js/render-quote.js';
+import './js/render-exercises.js';
 
 const testBtn = document.querySelector('.test-btn');
 const loader = document.querySelector('.loader');
@@ -10,4 +11,4 @@ if (testBtn && loader) {
   });
 }
 
-document.addEventListener("DOMContentLoaded", renderQuote);
+// document.addEventListener("DOMContentLoaded", renderQuote);
