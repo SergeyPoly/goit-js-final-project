@@ -1,5 +1,7 @@
 import { toggleHideDOMElement } from './js/renderers/utils';
 import { renderQuote } from './js/renderers/quote';
+import { getExercises } from './js/services/api';
+import { renderExercisesList } from './js/renderers/exercises-list';
 
 const testBtn = document.querySelector('.test-btn');
 const loader = document.querySelector('.loader');
@@ -10,4 +12,10 @@ if (testBtn && loader) {
   });
 }
 
-document.addEventListener('DOMContentLoaded', renderQuote);
+document.addEventListener('DOMContentLoaded', () => {
+  renderQuote();
+
+  getExercises({}).then(({ results: exercises }) => {
+    renderExercisesList(exercises, 'No exercises found');
+  });
+});

@@ -17,7 +17,6 @@
 .exercise-card-header {
   display: flex;
   align-items: center;
-  gap: 8px;
 }
 
 .exercise-card-header-middle {
@@ -35,29 +34,48 @@
   border-radius: 15px;
 }
 
-.remove-favorite-button {
+.card-icon-button {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 16px;
-  height: 16px;
   cursor: pointer;
   transition: opacity var(--primary-transition);
 }
 
-.remove-favorite-button:hover {
+.card-icon-button:hover {
   opacity: 0.7;
 }
 
-.remove-favorite-button:active {
+.card-icon-button:active {
   opacity: 0.5;
+}
+
+.remove-favorite-button {
+  width: 16px;
+  height: 16px;
+  margin-left: 8px;
 }
 
 .remove-favorite-icon {
   width: 12px;
   height: 13.33px;
-  cursor: pointer;
   fill: none;
+}
+
+.rating-button {
+  font-size: 12px;
+  line-height: 1.5;
+  margin-left: 16px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: opacity var(--primary-transition);
+}
+
+.rating-icon {
+  width: 16px;
+  height: 16px;
 }
 
 .start-button {

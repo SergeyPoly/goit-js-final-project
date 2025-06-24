@@ -8,13 +8,13 @@ export function renderExerciseCard(exercise, isFavorite) {
         <div class="exercise-card-header-middle">
           ${
             isFavorite
-              ? `<button data-action="${EXERCISE_CARD_ACTIONS.REMOVE_FAVORITE}" class="remove-favorite-button">
+              ? `<button data-action="${EXERCISE_CARD_ACTIONS.REMOVE_FAVORITE}" class="card-icon-button remove-favorite-button">
                   <svg class="remove-favorite-icon">
                     <use href="./img/icons.svg#trash-icon"></use>
                   </svg>
                 </button>`
-              : `<button data-action="${EXERCISE_CARD_ACTIONS.RATE}" class="rating-button">
-                  <span class="excercise-rating">${exercise.rating}</span>
+              : `<button data-action="${EXERCISE_CARD_ACTIONS.RATE}" class="card-icon-button rating-button">
+                  ${exercise.rating}
                   <svg class="rating-icon">
                     <use href="./img/icons.svg#star-filled-icon"></use>
                   </svg>
