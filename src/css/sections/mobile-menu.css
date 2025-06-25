@@ -6,7 +6,7 @@
   width: 100%;
   height: 100%;
 
-  background-color: var(--mobile-menu-overlay-color);
+  background-color: rgba(04, 04, 04, 0.4);
   opacity: 0;
   transition: opacity var(--modal-transition);
 }
