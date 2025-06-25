@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 import { showErrorMessage, showSuccessMessage } from './izitoast.js';
+import { EXERCISES_PAGE_SIZE } from '../constants.js';
 
 axios.defaults.baseURL = 'https://your-energy.b.goit.study/api';
 
@@ -36,7 +37,12 @@ export function getFilters(filter, page = 1, limit = 12) {
   return makeRequest('get', '/filters', { params });
 }
 
-export function getExercises(filters, keyword, page = 1, limit = 10) {
+export function getExercises(
+  filters,
+  keyword,
+  page = 1,
+  limit = EXERCISES_PAGE_SIZE
+) {
   const { bodypart, muscles, equipment } = filters;
   const params = {
     // Available values : back, cardio, chest, lower arms, lower legs, neck, shoulders, upper arms, upper legs, waist
