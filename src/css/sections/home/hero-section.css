@@ -12,13 +12,13 @@
 .hero-content {
   display: flex;
   flex-direction: column;
-  gap: 20px; /* Adds spacing between the SVG, title, and description */
+  gap: 20px;
   text-align: left;
   max-width: 50%;
 }
 
 .hero-content svg {
-  align-self: flex-start; /* Ensures the SVG aligns with the start of the content */
+  align-self: flex-start;
 }
 .hero .icon-placeholder {
   width: 20px;
@@ -28,7 +28,7 @@
   display: inline-block;
 }
 .hero h1 {
-  font-family: 'New Font', sans-serif; /* Replace with the new font */
+  font-family: 'New Font', sans-serif;
   font-weight: 400;
   font-size: 74px;
   line-height: 74px;
@@ -210,7 +210,7 @@
     justify-content: center;
     width: 100%;
     gap: 5px;
-    grid-template-columns: 1fr 1fr; /* Two columns on mobile */
+    grid-template-columns: 1fr 1fr;
   }
   .hashtag {
     font-size: 14px;
