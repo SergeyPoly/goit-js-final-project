@@ -24,7 +24,7 @@ export function renderExercisesList(exercises, emptyMessage, isFavorite) {
   listEl.insertAdjacentHTML('beforeend', content);
 }
 
-listEl.addEventListener('click', e => {
+listEl?.addEventListener('click', e => {
   let target = e.target;
 
   if (target.nodeName !== 'BUTTON') {

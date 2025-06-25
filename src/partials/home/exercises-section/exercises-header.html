@@ -11,11 +11,16 @@
     <form class="exercises-filter__search visually-hidden">
       <input
         type="text"
+        name="search"
         class="search-input"
         placeholder="Search"
-        id="exercise-search-input"
       />
-      <button type="submit" class="search-button">🔍</button>
+      <button type="submit" class="search-button">
+        Submit
+        <svg class="search-icon">
+          <use href="./img/icons.svg#search-icon"></use>
+        </svg>
+      </button>
     </form>
 
     <div class="exercises-filter__filters">

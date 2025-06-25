@@ -1,11 +1,11 @@
-export function renderPagination(currentPage, totalPages, onPageChange) {
+export function renderPagination(currentPage, totalPages, onPageChange, contentBlock = '.favorites-content') {
   let paginationContainer = document.querySelector('.pagination');
 
   if (!paginationContainer) {
     paginationContainer = document.createElement('div');
     paginationContainer.className = 'pagination';
     document
-      .querySelector('.favorites-content')
+      .querySelector(contentBlock)
       .appendChild(paginationContainer);
   } else {
     paginationContainer.innerHTML = ''; // Clear previous pagination

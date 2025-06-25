@@ -4,25 +4,33 @@
 
   .exercises-header {
     margin-bottom: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+
+    @media screen and (min-width: 768px) {
+      gap: 2rem;
+    }
 
     .exercises-header-wrapper {
-      margin-bottom: 1.25rem;
       display: flex;
       align-items: center;
       gap: 0.5rem;
 
-      @media screen and (min-width: 768px) {
-        margin-bottom: 2rem;
-      }
-
       .section-title {
         margin: 0;
+        cursor: default;
+
+        &.cursor-pointer {
+          cursor: pointer;
+        }
       }
 
       .exercises-header__breadcrumbs {
         display: flex;
         align-items: center;
         gap: 0.625rem;
+        cursor: default;
 
         @media screen and (min-width: 768px) {
           align-items: flex-end;
@@ -52,24 +60,41 @@
     .exercises-filter {
       display: flex;
       flex-direction: column;
+      gap: 1.25rem;
+
+      @media screen and (min-width: 768px) {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1.25rem;
+      }
       
       .exercises-filter__search {
+        margin-top: 1.25rem;
         overflow: hidden;
         display: flex;
+        align-items: center;
         width: 100%;
+        height: 48px;
         max-width: 400px;
         border: 1px solid var(--secondary);
         border-radius: 30px;
         background-color: var(--primary);
 
+        @media screen and (min-width: 768px) {
+          margin-top: 0;
+        }
+
         .search-input {
           flex: 1;
-          padding: 10px 12px;
+          height: inherit;
+          padding: 0.75rem 0.875rem;
           border: none;
           outline: none;
           background-color: transparent;
           font-size: 16px;
-          color: var(--primary);
+          line-height: 1.5;
+          color: var(--secondary);
 
           &::placeholder {
             color: var(--secondary);
@@ -80,10 +105,18 @@
           border: none;
           outline: none;
           background-color: transparent;
-          color: white;
-          padding: 0 16px;
+          color: transparent;
+          padding: 0 0.875rem;
           cursor: pointer;
-          font-size: 16px;
+          font-size: 0.1px;
+
+          .search-icon {
+            width: 18px;
+            height: 18px;
+            fill: transparent;
+            stroke: var(--secondary);
+            transition: stroke var(--primary-transition);
+          }
         }
       }
 
@@ -121,7 +154,9 @@
     }
   }
 
-  .exercises-content-wrapper {
+  .exercises-wrapper {
+    overflow: hidden;
+    width: 100%;
     display: grid;
     flex-direction: column;
     grid-template-columns: 1fr;
@@ -132,108 +167,103 @@
       gap: 4rem 2rem;
     }
 
-    @media screen and (min-width: 1024px) {
+    @media screen and (min-width: 1440px) {
       grid-template-columns: 0.33035714285714285fr 0.6696428571428571fr;
     }
 
-    .exercises-content {
-      --grid-max-col-count: 3;
-      --grid-min-col-size: 225px;
-      --grid-gap: 1.25rem;
-
-      --grid-col-size-calc: calc(
-        (100% - var(--grid-gap) * var(--grid-max-col-count)) /
-          var(--grid-max-col-count)
-      );
-      --grid-col-min-size-calc: min(
-        100%,
-        minmax(var(--grid-min-col-size), var(--grid-col-size-calc))
-      );
-
-      display: grid;
-      grid-template-columns: repeat(
-        auto-fit,
-        min(var(--grid-col-min-size-calc), 225px)
-      );
-      grid-auto-rows: 225px;
-      gap: var(--grid-gap);
-
-
-      /* display: grid;
-      grid-template-columns: 1fr;
-      grid-auto-rows: 225px;
-      gap: 1.25rem; */
-
-      @media screen and (min-width: 768px) {
-        /* grid-template-columns: repeat(3, 225px);
-        max-width: calc(225px * 3 + 1.25rem * 2); */
-
-        grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
-        --grid-gap: 2rem 0.9375rem;
-      }
-
-      @media screen and (min-width: 1024px) {
+    .exercises-content-wrapper {
+      @media screen and (min-width: 1440px) {
         order: 2;
       }
+      
+      .exercises-content {
+        --grid-max-col-count: 3;
+        --grid-min-col-size: 225px;
+        --grid-gap: 1.25rem;
 
-      .exercises-content__item {
-        position: relative;
-        overflow: hidden;
-        border-radius: 12px;
-        cursor: pointer;
+        --grid-col-size-calc: calc(
+          (100% - var(--grid-gap) * var(--grid-max-col-count)) /
+            var(--grid-max-col-count)
+        );
+        --grid-col-min-size-calc: min(
+          100%,
+          minmax(var(--grid-min-col-size), var(--grid-col-size-calc))
+        );
 
-        &::before {
-          content: '';
-          position: absolute;
-          z-index: 2;
-          inset: 0;
-          background-color: var(--cards-overlay);
+        display: grid;
+        grid-template-columns: repeat(
+          auto-fit,
+          min(var(--grid-col-min-size-calc), 225px)
+        );
+        grid-auto-rows: 225px;
+        gap: var(--grid-gap);
+
+        @media screen and (min-width: 768px) {
+          grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
+          --grid-gap: 2rem 0.9375rem;
         }
 
-        &:hover .exercises-content__image {
-          transform: scale(1.2);
-        }
+        .exercises-content__item {
+          position: relative;
+          overflow: hidden;
+          border-radius: 12px;
+          cursor: pointer;
 
-        .exercises-content__image {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          transition: all var(--primary-transition);
-        }
-
-        .exercises-content__text {
-          position: absolute;
-          z-index: 3;
-          inset: 0;
-
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-          gap: 0.125rem;
-
-          .exercises-content__title {
-            color: var(--primary);
-            font-size: 1.25rem;
-            line-height: 1;
-            font-weight: 400;
-            text-transform: capitalize;
+          &::before {
+            content: '';
+            position: absolute;
+            z-index: 2;
+            inset: 0;
+            background-color: var(--cards-overlay);
           }
 
-          .exercises-content__description {
-            color: var(--primary40);
-            font-size: 0.75rem;
-            line-height: 1.5;
+          &:hover .exercises-content__image {
+            transform: scale(1.2);
+          }
+
+          .exercises-content__image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all var(--primary-transition);
+          }
+
+          .exercises-content__text {
+            position: absolute;
+            z-index: 3;
+            inset: 0;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 0.125rem;
+
+            .exercises-content__title {
+              color: var(--primary);
+              font-size: 1.25rem;
+              line-height: 1;
+              font-weight: 400;
+              text-transform: capitalize;
+            }
+
+            .exercises-content__description {
+              color: var(--primary40);
+              font-size: 0.75rem;
+              line-height: 1.5;
+            }
           }
         }
-      }
 
-      .exercises-loader {
-        position: sticky;
-        top: 50%;
-        margin: 2rem auto;
+        .exercises-loader {
+          position: sticky;
+          top: 50%;
+          margin: 2rem auto;
+        }
       }
     }
+
+    
   }
 
   .quote-section {

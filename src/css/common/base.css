@@ -8,7 +8,6 @@ body {
   line-height: 1.28;
   color: var(--secondary);
   background-color: var(--primary);
-  width: 100vw;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -125,6 +124,7 @@ main,
 }
 
 .page-button.active {
+  box-sizing: content-box;
   color: var(--secondary);
   width: 32px;
   border-radius: 50%;
@@ -160,7 +160,7 @@ main,
 
 @media (min-width: 1440px) {
   .container {
-    width: 1440px;
+    max-width: 1440px;
     padding: 0 32px;
   }
 
