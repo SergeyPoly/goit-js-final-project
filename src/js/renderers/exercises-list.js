@@ -7,6 +7,10 @@ const listEl = document.querySelector('.exercises-list');
 export function renderExercisesList(exercises, emptyMessage, isFavorite) {
   listEl.innerHTML = ''; // Clear the list before rendering
 
+  if (isFavorite) {
+    listEl.classList.add('favorites');
+  }
+
   let content = '';
 
   if (!exercises.length) {
