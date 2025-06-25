@@ -102,34 +102,6 @@ main,
   color: var(--secondary);
 }
 
-.pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  margin-top: 32px;
-}
-
-.page-button {
-  font-size: 24px;
-  line-height: 32px;
-  color: var(--inactive-pagination);
-  cursor: pointer;
-  transition: color var(--primary-transition);
-}
-
-.page-button:hover {
-  color: var(--secondary);
-}
-
-.page-button.active {
-  color: var(--secondary);
-  width: 32px;
-  border-radius: 50%;
-  border: 1px solid var(--secondary);
-  pointer-events: none;
-}
-
 @media (min-width: 768px) {
   .container {
     max-width: unset;
