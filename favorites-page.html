@@ -21,18 +21,19 @@
       rel="stylesheet"
     />
     <script type="module" crossorigin src="/goit-js-final-project/favorites-page.js"></script>
-    <link rel="modulepreload" crossorigin href="/goit-js-final-project/assets/exercises-list-CTpf8nCO.js">
-    <link rel="stylesheet" crossorigin href="/goit-js-final-project/assets/exercises-list-BrUR5XYg.css">
+    <link rel="modulepreload" crossorigin href="/goit-js-final-project/assets/header-B6eVmwhF.js">
+    <link rel="stylesheet" crossorigin href="/goit-js-final-project/assets/header-BIKeuXqC.css">
   </head>
   <body>
     <header class="header">
-  <div class="container">
+  <div class="container header-container">
+    <a class="nav-logo" href="./index.html" aria-label="Site logo">
+      <svg class="nav-logo-icon" width="132" height="24">
+        <use href="/goit-js-final-project/assets/icons-CJ9FAZiy.svg#logo-icon"></use>
+      </svg>
+    </a>
+
     <nav class="nav">
-      <a class="nav-logo" href="./index.html" aria-label="Site logo">
-        <svg class="nav-logo-icon" width="100" height="30">
-          <use href="{=$icon-path}"></use>
-        </svg>
-      </a>
       <ul class="nav-list">
         <li class="nav-item">
           <a class="nav-link {=$highlight-act}" href="./index.html">Home</a>
@@ -42,6 +43,37 @@
         </li>
       </ul>
     </nav>
+
+    <ul class="nav-social">
+      <li class="social-item">
+        <a class="social-link" href="https://www.facebook.com/goITclub/" target="_blank" aria-label="Facebook link">
+          <svg class="social-logo-icon" width="28" height="28">
+            <use href="/goit-js-final-project/assets/icons-CJ9FAZiy.svg#facebook-icon"></use>
+          </svg>
+        </a>
+      </li>
+      <li class="social-item">
+        <a class="social-link" href="https://www.instagram.com/goitclub/" target="_blank" aria-label="Instagram link">
+          <svg class="social-logo-icon" width="28" height="28">
+            <use href="/goit-js-final-project/assets/icons-CJ9FAZiy.svg#instagram-icon"></use>
+          </svg>
+        </a>
+      </li>
+      <li class="social-item">
+        <a class="social-link" href="https://www.youtube.com/c/GoIT" target="_blank" aria-label="Youtube link">
+          <svg class="social-logo-icon" width="28" height="28">
+            <use href="/goit-js-final-project/assets/icons-CJ9FAZiy.svg#youtube-icon"></use>
+          </svg>
+        </a>
+      </li>
+    </ul>
+
+    <button class="burger-btn" type="button">
+      <svg class="burger-icon" width="32" height="32" stroke="black">
+        <use href="/goit-js-final-project/assets/icons-CJ9FAZiy.svg#menu-icon"></use>
+      </svg>
+      <span class="visually-hidden">Open menu</span>
+    </button>
   </div>
 </header>
 
@@ -67,7 +99,54 @@
 </footer>
 
 
-    
+    <div class="mobile-menu-overlay hidden">
+  <div class="mobile-menu">
+
+    <button type="button" class="mobile-menu__close-button">
+      <svg width="32" height="32" class="mobile-menu__close-icon">
+        <use href="/goit-js-final-project/assets/icons-CJ9FAZiy.svg#close-icon"></use>
+      </svg>
+      <span class="visually-hidden">Close menu</span>
+    </button>
+
+    <nav class="mobile-menu__nav">
+      <ul class="mobile-menu__nav-list">
+        <li class="mobile-menu__nav-item">
+          <a class="mobile-menu__nav-link" href="./index.html">Home</a>
+        </li>
+        <li class="mobile-menu__nav-item">
+          <a class="mobile-menu__nav-link" href="./favorites-page.html">Favorites</a>
+        </li>
+      </ul>
+    </nav>
+
+    <ul class="mobile-menu__nav-social">
+      <li class="mobile-menu__social-item">
+        <a class="mobile-menu__social-link" href="https://www.facebook.com/goITclub/" target="_blank" aria-label="Facebook link">
+          <svg class="mobile-menu__social-logo-icon" width="28" height="28">
+            <use href="/goit-js-final-project/assets/icons-CJ9FAZiy.svg#facebook-icon"></use>
+          </svg>
+        </a>
+      </li>
+      <li class="mobile-menu__social-item">
+        <a class="mobile-menu__social-link" href="https://www.instagram.com/goitclub/" target="_blank" aria-label="Instagram link">
+          <svg class="mobile-menu__social-logo-icon" width="28" height="28">
+            <use href="/goit-js-final-project/assets/icons-CJ9FAZiy.svg#instagram-icon"></use>
+          </svg>
+        </a>
+      </li>
+      <li class="mobile-menu__social-item">
+        <a class="mobile-menu__social-link" href="https://www.youtube.com/c/GoIT" target="_blank" aria-label="Youtube link">
+          <svg class="mobile-menu__social-logo-icon" width="28" height="28">
+            <use href="/goit-js-final-project/assets/icons-CJ9FAZiy.svg#youtube-icon"></use>
+          </svg>
+        </a>
+      </li>
+    </ul>
+
+  </div>
+</div>
+
 
     
 
