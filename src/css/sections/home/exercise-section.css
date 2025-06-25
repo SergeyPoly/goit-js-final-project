@@ -12,6 +12,13 @@
       gap: 2rem;
     }
 
+    @media screen and (min-width: 1440px) {
+      margin-bottom: 2rem;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+
     .exercises-header-wrapper {
       display: flex;
       align-items: center;
@@ -68,6 +75,11 @@
         justify-content: space-between;
         gap: 1.25rem;
       }
+
+      @media screen and (min-width: 1440px) {
+        flex: 1;
+        justify-content: flex-end;
+      }
       
       .exercises-filter__search {
         margin-top: 1.25rem;
@@ -106,9 +118,13 @@
           outline: none;
           background-color: transparent;
           color: transparent;
-          padding: 0 0.875rem;
+          padding: 0 0.875rem 0 0.1875rem;
           cursor: pointer;
           font-size: 0.1px;
+
+          &.clear-icon {
+            padding: 0 0.1875rem;
+          }
 
           .search-icon {
             width: 18px;
@@ -172,35 +188,21 @@
     }
 
     .exercises-content-wrapper {
+      position: relative;
+
       @media screen and (min-width: 1440px) {
         order: 2;
       }
       
       .exercises-content {
-        --grid-max-col-count: 3;
-        --grid-min-col-size: 225px;
-        --grid-gap: 1.25rem;
-
-        --grid-col-size-calc: calc(
-          (100% - var(--grid-gap) * var(--grid-max-col-count)) /
-            var(--grid-max-col-count)
-        );
-        --grid-col-min-size-calc: min(
-          100%,
-          minmax(var(--grid-min-col-size), var(--grid-col-size-calc))
-        );
-
         display: grid;
-        grid-template-columns: repeat(
-          auto-fit,
-          min(var(--grid-col-min-size-calc), 225px)
-        );
-        grid-auto-rows: 225px;
-        gap: var(--grid-gap);
+        grid-template-columns: repeat(auto-fill, minmax(224px, 1fr));
+        grid-auto-rows: 224px;
+        gap: 1.25rem;
 
         @media screen and (min-width: 768px) {
-          grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
-          --grid-gap: 2rem 0.9375rem;
+          grid-template-columns: repeat(auto-fill, minmax(224px, 1fr));
+          gap: 2rem 0.9375rem;
         }
 
         .exercises-content__item {
@@ -255,15 +257,47 @@
           }
         }
 
-        .exercises-loader {
-          position: sticky;
+        .content-error {
+          position: absolute;
           top: 50%;
-          margin: 2rem auto;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          text-align: center;
+          color: var(--secondary);
+          font-size: 1.125rem;
+          line-height: 1.333334;
+        }
+      }
+
+      .exercises-list {
+        max-width: none;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-auto-rows: 141px;
+        gap: 1.25rem;
+
+        @media screen and (min-width: 768px) {
+          grid-template-columns: 1fr 1fr;
+          gap: 2rem 1rem;
+        }
+
+        .exercise-card {
+          width: 100%;
+          overflow: hidden;
+        }
+      }
+
+      .exercises-loader {
+        position: sticky;
+        top: 50%;
+        transform: translateY(-50%);
+        margin: 2rem auto;
+
+        &.visually-hidden {
+          display: none;
         }
       }
     }
-
-    
   }
 
   .quote-section {

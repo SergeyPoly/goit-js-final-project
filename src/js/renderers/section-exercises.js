@@ -1,143 +1,365 @@
 import { getFilters, getExercises } from '../services/api';
 import { renderFiltersList } from './filters-list'
+import { toLowerCaseFilter } from './filter-card'
+import { renderExercisesList } from './exercises-list';
 import { renderPagination } from './pagination';
-import { toggleHideDOMElement } from './utils';
 
-const exercisesContent = document.querySelector('.exercises-content');
+// Configuration
+const CONFIG = {
+  LIMITS: {
+    DESKTOP_LARGE: 12,
+    DESKTOP: 9,
+    EXERCISES_LIST: 10
+  },
+  BREAKPOINTS: {
+    DESKTOP_LARGE: 1440
+  },
+  DEFAULT_FILTER: 'Muscles'
+};
 
-const filterBlock = document.querySelector('.exercises-filter__filters');
-const filterBtns = filterBlock.querySelectorAll('.filter-btn');
-const filterUnderline = filterBlock.querySelector('.filter-underline');
+// DOM Elements
+const elements = {
+  exercisesContent: document.querySelector('.exercises-content'),
+  exercisesList: document.querySelector('.exercises-list'),
+  filterBlock: document.querySelector('.exercises-filter__filters'),
+  filterBtns: document.querySelectorAll('.filter-btn'),
+  filterUnderline: document.querySelector('.filter-underline'),
+  exercisesTitle: document.querySelector('.exercises-header-wrapper .section-title'),
+  breadcrumbs: document.querySelector('.exercises-header__breadcrumbs'),
+  breadcrumbsText: document.querySelector('.breadcrumbs-exercises'),
+  exercisesSearch: document.querySelector('.exercises-filter__search'),
+  exercisesSearchInput: document.querySelector('.exercises-filter__search .search-input'),
+  exercisesLoader: document.querySelector('.exercises-loader'),
+  clearInputBtn: document.querySelector('.search-button.clear-icon'),
+};
 
-const exercisesTitle = document.querySelector('.exercises-header-wrapper .section-title');
-const breadcrumbs = document.querySelector('.exercises-header__breadcrumbs');
-const breadcrumbsText = breadcrumbs.querySelector('.breadcrumbs-exercises');
-const exercisesSearch = document.querySelector('.exercises-filter__search');
+// Application State
+const state = {
+  currentFilter: null,
+  currentPage: 1,
+  currentLimit: 9,
+  totalPages: null,
+  exerciseName: null,
+  exerciseSearch: '',
+};
 
-const exercisesLoader = exercisesContent.querySelector('.exercises-loader');
+// Utility Functions
+const urlUtils = {
+  setNewParams: (params) => {
+    const newUrl = `${window.location.pathname}?${params.toString()}`;
+    history.pushState(null, '', newUrl);
+  },
 
-let currentFilter = null;
-let currentPage = 1;
-let currentLimit = 9;
-let totalPages = null;
-let exerciseName = null;
+  getParams: () => new URLSearchParams(window.location.search),
 
-const setNewURLParams = (params) => {
-  const newUrl = `${window.location.pathname}?${params.toString()}`;
-  history.pushState(null, '', newUrl);
-}
+  getExerciseNameFromParams: (params) => {
+    return params.get('bodypart') ?? params.get('muscles') ?? params.get('equipment') ?? null;
+  }
+};
 
-const moveUnderline = (link) => {
-  const filterBlockRect = filterBlock.getBoundingClientRect();
-  const linkRect = link.getBoundingClientRect();
-  
-  const left = linkRect.left - filterBlockRect.left;
-  const width = linkRect.width;
+const uiUtils = {
+  showExercisesList: () => {
+    elements.breadcrumbs.classList.remove('visually-hidden');
+    elements.exercisesSearch.classList.remove('visually-hidden');
+    elements.exercisesTitle.classList.add('cursor-pointer');
+  },
 
-  filterUnderline.style.left = `${left}px`;
-  filterUnderline.style.width = `${width}px`;
+  hideExercisesList: () => {
+    elements.breadcrumbs.classList.add('visually-hidden');
+    elements.exercisesSearch.classList.add('visually-hidden');
+    elements.exercisesTitle.classList.remove('cursor-pointer');
+  },
+
+  updateBreadcrumbs: (text) => {
+    elements.breadcrumbsText.textContent = text;
+  },
+
+  clearContent: () => {
+    elements.exercisesContent.innerHTML = '';
+    elements.exercisesList.innerHTML = '';
+  },
+
+  moveFilterUnderline: (targetBtn) => {
+    const filterBlockRect = elements.filterBlock.getBoundingClientRect();
+    const btnRect = targetBtn.getBoundingClientRect();
+    
+    const left = btnRect.left - filterBlockRect.left;
+    const width = btnRect.width;
+
+    elements.filterUnderline.style.left = `${left}px`;
+    elements.filterUnderline.style.width = `${width}px`;
+  },
+
+  setActiveFilter: (activeBtn) => {
+    elements.filterBtns.forEach(btn => btn.classList.remove('active'));
+    activeBtn.classList.add('active');
+    uiUtils.moveFilterUnderline(activeBtn);
+  }
+};
+
+const responsiveUtils = {
+  calculateLimit: (windowWidth, isExercisesList = false) => {
+    if (isExercisesList) return CONFIG.LIMITS.EXERCISES_LIST;
+    return windowWidth >= CONFIG.BREAKPOINTS.DESKTOP_LARGE 
+      ? CONFIG.LIMITS.DESKTOP_LARGE 
+      : CONFIG.LIMITS.DESKTOP;
+  },
+
+  updateLimit: (windowWidth = window.innerWidth) => {
+    const newLimit = responsiveUtils.calculateLimit(windowWidth, !!state.exerciseName);
+    if (state.currentLimit !== newLimit) {
+      state.currentLimit = newLimit;
+      if (state.exerciseName) {
+        uiUtils.clearContent();
+        renderExercises();
+      } else {
+        uiUtils.clearContent();
+        renderFilters();
+      }
+      return true;
+    }
+    return false;
+  }
+};
+
+// Core Functions
+const clearPagination = () => {
+  const paginationContainer = document.querySelector('.pagination');
+  if (paginationContainer) {
+    paginationContainer.remove();
+  }
 }
 
 const renderFilters = async (page) => {
-  toggleHideDOMElement(exercisesLoader);
-  currentPage = page ? page : currentPage;
+  try {
+    elements.exercisesLoader.classList.remove('visually-hidden');
+    state.currentPage = page ? page : state.currentPage;
 
-  const { results, totalPages: totalPagesValue } = await getFilters(currentFilter, currentPage, currentLimit);
+    const { results, totalPages: totalPagesValue } = await getFilters(state.currentFilter, state.currentPage, state.currentLimit);
 
-  const filtersList = renderFiltersList(results, 'Oops! No exercises found');
+    const filtersList = renderFiltersList(results, 'Oops! No exercises found');
 
-  toggleHideDOMElement(exercisesLoader);
-  exercisesContent.innerHTML = filtersList;
-  totalPages = totalPagesValue;
+    elements.exercisesLoader.classList.add('visually-hidden');
+    elements.exercisesContent.innerHTML = filtersList;
+    state.totalPages = totalPagesValue;
 
-  if (totalPages > 1) {
-    renderPagination(currentPage - 1, totalPages, newPage => {
-      page = newPage;
-      renderFilters(newPage + 1);
-    }, '.exercises-content-wrapper');
+    if (state.totalPages > 1) {
+      renderPagination(state.currentPage - 1, state.totalPages, newPage => {
+        renderFilters(newPage + 1);
+      }, '.exercises-content-wrapper');
+    } else {
+      clearPagination();
+    }
+  } catch (error) {
+    console.error('Error rendering filters:', error);
+    elements.exercisesLoader.classList.add('visually-hidden');
+    elements.exercisesContent.innerHTML = '<p class="content-error">Error loading filters.<br>Please try again.</p>';
   }
 }
 
-const onWindowResize = (e) => {
-  const targetElement = e ? e.target : window;
-  if (targetElement.innerWidth >= 1440 && currentLimit !== 12) {
-    currentLimit = 12;
-  }
+const renderExercises = async (page) => {
+  try {
+    elements.exercisesLoader.classList.remove('visually-hidden');
+    state.currentPage = page ? page : state.currentPage;
 
-  if (targetElement.innerWidth < 1440 && currentLimit !== 9) {
-    currentLimit = 9;
+    const { results, totalPages: totalPagesValue } = await getExercises(
+      {[toLowerCaseFilter(state.currentFilter)]: state.exerciseName}, 
+      state.exerciseSearch,
+      state.currentPage, 
+      state.currentLimit
+    );
+
+    renderExercisesList(results, 'Oops! No exercises found');
+
+    elements.exercisesLoader.classList.add('visually-hidden');
+    state.totalPages = totalPagesValue;
+
+    if (state.totalPages > 1) {
+      renderPagination(state.currentPage - 1, state.totalPages, newPage => {
+        renderExercises(newPage + 1);
+      }, '.exercises-content-wrapper');
+    } else {
+      clearPagination();
+    }
+  } catch (error) {
+    console.error('Error rendering exercises:', error);
+    elements.exercisesLoader.classList.add('visually-hidden');
+    elements.exercisesList.innerHTML = '<p class="content-error">Error loading exercises.<br>Please try again.</p>';
   }
 }
 
-window.addEventListener('resize', onWindowResize);
+// Event Handlers
+const handleFilterClick = async (e, btn) => {
+  e.preventDefault();
+  uiUtils.setActiveFilter(btn);
+  
+  state.currentFilter = btn.textContent;
 
-// Filter buttons click event
-filterBtns.forEach(link => {
-  link.addEventListener('click', e => {
-    e.preventDefault();
-    filterBtns.forEach(l => l.classList.remove('active'));
-    link.classList.add('active');
-    moveUnderline(link);
-    currentFilter = link.textContent;
+  handleClearSearch();
 
-    const params = new URLSearchParams();
-    params.set('filter', currentFilter);
+  if (state.exerciseName) {
+    uiUtils.hideExercisesList();
+    state.exerciseName = null;
+    uiUtils.clearContent();
+  }
 
-    setNewURLParams(params);
+  state.currentPage = 1;
 
-    renderFilters();
-  });
-});
+  await renderFilters();
+};
 
-// Action to exercise list
-exercisesContent.addEventListener('click', e => {
+const handleExerciseClick = async (e) => {
   const target = e.target.closest('.exercises-content__item');
+  
   if (target) {
-    exerciseName = target.dataset.exercise;
+    state.exerciseName = target.dataset.exercise;
     const filter = target.dataset.filter;
 
     const params = new URLSearchParams();
-    params.set('filter', currentFilter);
-    params.set(filter, exerciseName);
+    params.set('filter', state.currentFilter);
+    params.set(filter, state.exerciseName);
+    urlUtils.setNewParams(params);
 
-    setNewURLParams(params);
+    uiUtils.updateBreadcrumbs(state.exerciseName);
+    uiUtils.showExercisesList();
 
-    breadcrumbsText.textContent = exerciseName;
-    breadcrumbs.classList.remove('visually-hidden');
-    exercisesSearch.classList.remove('visually-hidden');
-    exercisesTitle.classList.add('cursor-pointer');
+    state.currentPage = 1;
+    state.currentLimit = CONFIG.LIMITS.EXERCISES_LIST;
+
+    uiUtils.clearContent();
+    await renderExercises();
   }
-});
+};
 
-// Back to filters
-exercisesTitle.addEventListener('click', () => {
-  breadcrumbs.classList.add('visually-hidden');
-  exercisesSearch.classList.add('visually-hidden');
-  exercisesTitle.classList.remove('cursor-pointer');
+const handleBackToFilters = async () => {
+  uiUtils.hideExercisesList();
+
+  handleClearSearch();
+
+  state.currentPage = 1;
+  state.exerciseName = null;
+  responsiveUtils.updateLimit();
+
+  uiUtils.clearContent();
+  await renderFilters();
+};
+
+const handleWindowResize = () => {
+  responsiveUtils.updateLimit();
+  console.log(state.currentLimit);
+};
+
+const handleClearSearch = () => {
+  elements.exercisesSearchInput.value = '';
+  state.exerciseSearch = '';
 
   const params = new URLSearchParams();
-  params.set('filter', currentFilter);
+  params.set('filter', state.currentFilter);
+  if (state.exerciseName) {
+    params.set(toLowerCaseFilter(state.currentFilter), state.exerciseName);
+  }
+  urlUtils.setNewParams(params);
 
-  setNewURLParams(params);
-  exerciseName = null;
-  renderFilters();
+  elements.clearInputBtn.classList.add('visually-hidden');
+}
+
+// Event Listeners
+window.addEventListener('resize', handleWindowResize);
+
+// Filter buttons click event
+elements.filterBtns.forEach(btn => {
+  btn.addEventListener('click', e => handleFilterClick(e, btn));
+});
+
+// Action to exercises list
+elements.exercisesContent.addEventListener('click', handleExerciseClick);
+
+// Back to filters list
+elements.exercisesTitle.addEventListener('click', handleBackToFilters);
+
+// Clear search input
+elements.clearInputBtn.addEventListener('click', () => {
+  handleClearSearch();
+  renderExercises();
+});
+
+// Debounce utility for search input
+const debounceUtils = {
+  timers: new Map(),
+  
+  debounce: (func, delay, key = 'default') => {
+    return (...args) => {
+      if (debounceUtils.timers.has(key)) {
+        clearTimeout(debounceUtils.timers.get(key));
+      }
+      
+      const timerId = setTimeout(() => {
+        func(...args);
+        debounceUtils.timers.delete(key);
+      }, delay);
+      
+      debounceUtils.timers.set(key, timerId);
+    };
+  }
+};
+
+// Debounced search function
+const debouncedSearch = debounceUtils.debounce(async () => {
+  if (state.exerciseName) {
+    state.currentPage = 1;
+    uiUtils.clearContent();
+    await renderExercises();
+  }
+}, 500, 'search');
+
+// Search input event
+elements.exercisesSearchInput.addEventListener('input', e => {
+  state.exerciseSearch = e.target.value.trim().toLowerCase();
+
+  const params = new URLSearchParams();
+  params.set('filter', state.currentFilter);
+  params.set(toLowerCaseFilter(state.currentFilter), state.exerciseName);
+  params.set('keyword', state.exerciseSearch);
+  urlUtils.setNewParams(params);
+
+  if (state.exerciseSearch === '') {
+    elements.clearInputBtn.classList.add('visually-hidden');
+  } else {
+    elements.clearInputBtn.classList.remove('visually-hidden');
+  }
+
+  debouncedSearch();
 });
 
 const onLoad = () => {
-  const params = new URLSearchParams(window.location.search);
-  currentFilter = params.get('filter') || 'Muscles';
+  const params = urlUtils.getParams();
+  state.currentFilter = params.get('filter') ?? CONFIG.DEFAULT_FILTER;
+  state.exerciseName = urlUtils.getExerciseNameFromParams(params);
+  state.exerciseSearch = params.get('keyword') ?? '';
+
+  elements.exercisesSearchInput.value = state.exerciseSearch;
+  
   let currentActiveBtn = null;
 
-  for (const btn of filterBtns) {
-    if (btn.textContent.trim() === currentFilter) {
+  for (const btn of elements.filterBtns) {
+    if (btn.textContent.trim() === state.currentFilter) {
       currentActiveBtn = btn;
       btn.classList.add('active');
       break;
     } 
   }
 
-  if (currentActiveBtn) moveUnderline(currentActiveBtn);
-  onWindowResize();
+  if (currentActiveBtn) uiUtils.moveFilterUnderline(currentActiveBtn);
+  responsiveUtils.updateLimit();
+
+  if (state.exerciseName) {
+    uiUtils.updateBreadcrumbs(state.exerciseName);
+    uiUtils.showExercisesList();
+    state.currentLimit = CONFIG.LIMITS.EXERCISES_LIST;
+    renderExercises();
+    return;
+  }
+  
   renderFilters();
 }
 

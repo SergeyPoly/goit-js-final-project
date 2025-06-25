@@ -1,4 +1,4 @@
-const toLowerCaseFilter = (filter) =>
+export const toLowerCaseFilter = (filter) =>
   filter === 'Body parts' ? 'bodypart' : filter.replace(/\s/g, '').toLowerCase();
 
 export const renderFilterCard = (exercise) => {
