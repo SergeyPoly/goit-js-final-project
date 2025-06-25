@@ -13,6 +13,11 @@ body {
   flex-direction: column;
 }
 
+body.modal-open {
+  overflow: hidden;
+  margin-right: var(--scrollbar-width, 0px);
+}
+
 body,
 main,
 .container {

@@ -2,6 +2,7 @@ import { EXERCISES_PAGE_SIZE } from '../constants';
 import { renderExercisesList } from '../renderers/exercises-list';
 import { renderPagination } from '../renderers/pagination';
 import { getStoredExercises } from '../services/storage';
+import { loadHeader } from '../services/header.js';
 
 let page = 0;
 const favorites = getStoredExercises();
@@ -29,4 +30,6 @@ function renderFavoritesList() {
 
 document.addEventListener('DOMContentLoaded', () => {
   renderFavoritesList();
+
+  loadHeader();
 });
