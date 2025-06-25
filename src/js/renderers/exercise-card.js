@@ -43,7 +43,7 @@ export function renderExerciseCard(exercise, isFavorite) {
       <div class="exercise-card-footer">
         <p class="card-footer-text">
           <span class="secondary-text">Burned calories:</span>
-          ${exercise.burnedCalories} /${exercise.time} min
+          ${exercise.burnedCalories} / ${exercise.time} min
         </p>
         <p class="card-footer-text">
           <span class="secondary-text">Body part:</span>
