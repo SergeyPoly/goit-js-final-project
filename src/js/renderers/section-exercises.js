@@ -3,19 +3,7 @@ import { renderFiltersList } from './filters-list'
 import { toLowerCaseFilter } from './filter-card'
 import { renderExercisesList } from './exercises-list';
 import { renderPagination } from './pagination';
-
-// Configuration
-const CONFIG = {
-  LIMITS: {
-    DESKTOP_LARGE: 12,
-    DESKTOP: 9,
-    EXERCISES_LIST: 10
-  },
-  BREAKPOINTS: {
-    DESKTOP_LARGE: 1440
-  },
-  DEFAULT_FILTER: 'Muscles'
-};
+import { SECTION_EXERCISE_CONFIG } from '../constants';
 
 // DOM Elements
 const elements = {
@@ -99,10 +87,10 @@ const uiUtils = {
 
 const responsiveUtils = {
   calculateLimit: (windowWidth, isExercisesList = false) => {
-    if (isExercisesList) return CONFIG.LIMITS.EXERCISES_LIST;
-    return windowWidth >= CONFIG.BREAKPOINTS.DESKTOP_LARGE 
-      ? CONFIG.LIMITS.DESKTOP_LARGE 
-      : CONFIG.LIMITS.DESKTOP;
+    if (isExercisesList) return SECTION_EXERCISE_CONFIG.LIMITS.EXERCISES_LIST;
+    return windowWidth >= SECTION_EXERCISE_CONFIG.BREAKPOINTS.DESKTOP_LARGE 
+      ? SECTION_EXERCISE_CONFIG.LIMITS.DESKTOP_LARGE 
+      : SECTION_EXERCISE_CONFIG.LIMITS.DESKTOP;
   },
 
   updateLimit: (windowWidth = window.innerWidth) => {
@@ -224,7 +212,7 @@ const handleExerciseClick = async (e) => {
     uiUtils.showExercisesList();
 
     state.currentPage = 1;
-    state.currentLimit = CONFIG.LIMITS.EXERCISES_LIST;
+    state.currentLimit = SECTION_EXERCISE_CONFIG.LIMITS.EXERCISES_LIST;
 
     uiUtils.clearContent();
     await renderExercises();
@@ -246,7 +234,6 @@ const handleBackToFilters = async () => {
 
 const handleWindowResize = () => {
   responsiveUtils.updateLimit();
-  console.log(state.currentLimit);
 };
 
 const handleClearSearch = () => {
@@ -318,8 +305,15 @@ elements.exercisesSearchInput.addEventListener('input', e => {
 
   const params = new URLSearchParams();
   params.set('filter', state.currentFilter);
-  params.set(toLowerCaseFilter(state.currentFilter), state.exerciseName);
-  params.set('keyword', state.exerciseSearch);
+
+  if (state.exerciseName) {
+    params.set(toLowerCaseFilter(state.currentFilter), state.exerciseName);
+  }
+  
+  if (state.exerciseSearch) {
+    params.set('keyword', state.exerciseSearch);
+  }
+
   urlUtils.setNewParams(params);
 
   if (state.exerciseSearch === '') {
@@ -333,11 +327,17 @@ elements.exercisesSearchInput.addEventListener('input', e => {
 
 const onLoad = () => {
   const params = urlUtils.getParams();
-  state.currentFilter = params.get('filter') ?? CONFIG.DEFAULT_FILTER;
+  state.currentFilter = params.get('filter') ?? SECTION_EXERCISE_CONFIG.DEFAULT_FILTER;
   state.exerciseName = urlUtils.getExerciseNameFromParams(params);
   state.exerciseSearch = params.get('keyword') ?? '';
 
   elements.exercisesSearchInput.value = state.exerciseSearch;
+
+  if (state.exerciseSearch) {
+    elements.clearInputBtn.classList.remove('visually-hidden');
+  } else {
+    elements.clearInputBtn.classList.add('visually-hidden');
+  }
   
   let currentActiveBtn = null;
 
@@ -355,7 +355,7 @@ const onLoad = () => {
   if (state.exerciseName) {
     uiUtils.updateBreadcrumbs(state.exerciseName);
     uiUtils.showExercisesList();
-    state.currentLimit = CONFIG.LIMITS.EXERCISES_LIST;
+    state.currentLimit = SECTION_EXERCISE_CONFIG.LIMITS.EXERCISES_LIST;
     renderExercises();
     return;
   }
