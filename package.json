@@ -7,6 +7,7 @@
     "dev": "vite --open",
     "dev:host": "vite --host --open",
     "build": "vite build --base=/goit-js-final-project/",
+    "build:local": "vite build",
     "preview": "vite preview"
   },
   "devDependencies": {
