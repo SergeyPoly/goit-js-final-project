@@ -1,4 +1,4 @@
-import{g as x,l as y,E as f,r as S}from"./assets/header-B9gELQ7S.js";const d=3;function E(){return'<span class="pagination-ellipsis">...</span>'}function L(t,e){return`<button class="page-button ${t===e?"active":""}" data-page="${t}">${t}</button>`}function c(t,e,o,a){return`<button class="page-button arrow ${a?"disabled":""}" data-page="${o}">
+import{g as x,l as y,E as f,r as S}from"./assets/header-COwEqoJH.js";const d=3;function E(){return'<span class="pagination-ellipsis">...</span>'}function L(t,e){return`<button class="page-button ${t===e?"active":""}" data-page="${t}">${t}</button>`}function c(t,e,o,a){return`<button class="page-button arrow ${a?"disabled":""}" data-page="${o}">
     <svg class="pagination-arrow-icon ${e?"double":""}">
       <use href="./img/icons.svg#pagination-arrow${e?"-double":""}-${t}-icon"></use>
     </svg>
