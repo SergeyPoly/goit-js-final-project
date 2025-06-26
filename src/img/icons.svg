@@ -2,6 +2,9 @@
   version="1.1"
   xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
   <defs>
+    <symbol id="sun-icon" viewBox="0 0 32 32">
+        <path d="M31.5586 25.9717L32.9102 26.8076L33.8662 28.0732L34.3008 29.6016L34.1543 31.1807L33.4463 32.6025L32.2734 33.6719L30.7939 34.2461H29.2061L27.7256 33.6719L26.5527 32.6025L25.8447 31.1807L25.6982 29.6016L26.1328 28.0732L27.0889 26.8076L28.4404 25.9717L30 25.6797L31.5586 25.9717Z" stroke="#242424" stroke-width="4"/>
+    </symbol>
     <symbol id="arrow-icon" viewBox="0 0 32 32">
       <path stroke="#242424" stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="2.7733"
         d="M16 29.867l13.867-13.867M29.867 16l-13.867-13.867M29.867 16h-27.733"/>
