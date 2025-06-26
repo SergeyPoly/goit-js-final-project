@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Your Energy</title>
 
     <link rel="icon" type="image/svg+xml" href="/goit-js-final-project/favicon.svg" />
@@ -21,9 +21,9 @@
       rel="stylesheet"
     />
     <script type="module" crossorigin src="/goit-js-final-project/index.js"></script>
-    <link rel="modulepreload" crossorigin href="/goit-js-final-project/assets/header-6YTtpEwk.js">
+    <link rel="modulepreload" crossorigin href="/goit-js-final-project/assets/pagination-Dxs8xDKu.js">
     <link rel="modulepreload" crossorigin href="/goit-js-final-project/assets/vendor-CLZFq-H_.js">
-    <link rel="stylesheet" crossorigin href="/goit-js-final-project/assets/header-C70K_nuH.css">
+    <link rel="stylesheet" crossorigin href="/goit-js-final-project/assets/pagination-wbOVZy7R.css">
   </head>
   <body>
     <header class="header">
@@ -94,7 +94,7 @@
       </div>
       <div class="image-container">
         <div class="mini-image">
-          <img src="../../img/hero-min.png" alt="Fitness duo">
+          <img src="/goit-js-final-project/assets/hero-min-Cnf1kzyh.png" alt="Fitness duo">
         </div>
         <div class="tags-container">
           <a href="#" class="hashtag">#Sport</a>
@@ -106,10 +106,10 @@
     </div>
     <div class="hero-image">
       <picture>
-        <source media="(max-width: 799px)" srcset="../../img/hero-mobile.png">
-        <source media="(min-width: 800px) and (max-width: 1024px)" srcset="../../img/hero-tablet.png">
-        <source media="(min-width: 1025px)" srcset="../../img/hero-desktop.png">
-        <img src="../../img/hero-desktop.png" alt="Fitness duo">
+        <source media="(max-width: 799px)" srcset="/goit-js-final-project/assets/hero-mobile-DkzSWzl1.png">
+        <source media="(min-width: 800px) and (max-width: 1024px)" srcset="/goit-js-final-project/assets/hero-tablet-BzOtrgxO.png">
+        <source media="(min-width: 1025px)" srcset="/goit-js-final-project/assets/hero-tablet-BzOtrgxO.png">
+        <img src="/goit-js-final-project/assets/hero-tablet-BzOtrgxO.png" alt="Fitness duo">
       </picture>
     </div>
     <div class="bottom-tags-container">
@@ -120,10 +120,56 @@
     </div>
   </div>
 </section>
-      <div class="container">
-        <h2 class="section-title">Exercises</h2>
-        <div class="home-content">
-          <section class="home-quote quote">
+      <section class="exercises">
+  <div class="container">
+    <div class="exercises-header">
+  <div class="exercises-header-wrapper">
+    <h2 class="section-title">Exercises</h2>
+    <div class="exercises-header__breadcrumbs visually-hidden">
+      <p class="breadcrumbs-slash section-title">/</p>
+      <p class="breadcrumbs-exercises"></p>
+    </div>
+  </div>
+
+  <div class="exercises-filter">
+    <form class="exercises-filter__search visually-hidden">
+      <input
+        type="text"
+        name="search"
+        class="search-input"
+        placeholder="Search"
+      />
+      <button type="reset" class="search-button clear-icon visually-hidden">
+        Clear
+        <svg class="search-icon">
+          <use href="/goit-js-final-project/assets/icons-DrzlWyYF.svg#close-icon"></use>
+        </svg>
+      </button>
+      <button type="button" class="search-button">
+        Submit
+        <svg class="search-icon">
+          <use href="/goit-js-final-project/assets/icons-DrzlWyYF.svg#search-icon"></use>
+        </svg>
+      </button>
+    </form>
+
+    <div class="exercises-filter__filters">
+      <button class="filter-btn">Muscles</button>
+      <button class="filter-btn">Body parts</button>
+      <button class="filter-btn">Equipment</button>
+      <span class="filter-underline"></span>
+    </div>
+  </div>
+</div>
+
+    <div class="exercises-wrapper">
+      <div class="exercises-content-wrapper">
+  <ul class="exercises-content">
+  </ul>
+  <div class="exercises-list-wrapper"></div>
+  <span class="loader exercises-loader visually-hidden"></span>
+</div>
+      <section class="home-quote quote">
   <div class="quote-card">
     <div class="icon-body-container">
       <svg class="icon-body">
@@ -169,12 +215,11 @@
   </div>
 </section>
 
-          <div class="exercises-list">
-  <div class="exercises-list-wrapper"></div>
-</div>
+    </div>
+    
+  </div>
+</section>
 
-        </div>
-      </div>
     </main>
 
     <footer class="footer">
@@ -234,15 +279,6 @@
 
 
     
-
-    <!-- for demonstration purposes, will be removed later -->
-    <span class="loader"></span>
-    <button
-      class="test-btn button dark"
-      style="margin: 10px auto; display: block"
-    >
-      TEST HIDING
-    </button>
 
   </body>
 </html>
