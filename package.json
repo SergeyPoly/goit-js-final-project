@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --open",
+    "dev:host": "vite --host --open",
     "build": "vite build --base=/goit-js-final-project/",
     "preview": "vite preview"
   },

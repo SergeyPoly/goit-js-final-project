@@ -8,7 +8,7 @@ import { SECTION_EXERCISE_CONFIG } from '../constants';
 // DOM Elements
 const elements = {
   exercisesContent: document.querySelector('.exercises-content'),
-  exercisesList: document.querySelector('.exercises-list'),
+  exercisesList: document.querySelector('.exercises-list-wrapper'),
   filterBlock: document.querySelector('.exercises-filter__filters'),
   filterBtns: document.querySelectorAll('.filter-btn'),
   filterUnderline: document.querySelector('.filter-underline'),
@@ -132,8 +132,8 @@ const renderFilters = async (page) => {
     state.totalPages = totalPagesValue;
 
     if (state.totalPages > 1) {
-      renderPagination(state.currentPage - 1, state.totalPages, newPage => {
-        renderFilters(newPage + 1);
+      renderPagination(state.currentPage, state.totalPages, newPage => {
+        renderFilters(newPage);
       }, '.exercises-content-wrapper');
     } else {
       clearPagination();
@@ -157,14 +157,15 @@ const renderExercises = async (page) => {
       state.currentLimit
     );
 
+
     renderExercisesList(results, 'Oops! No exercises found');
 
     elements.exercisesLoader.classList.add('visually-hidden');
     state.totalPages = totalPagesValue;
 
     if (state.totalPages > 1) {
-      renderPagination(state.currentPage - 1, state.totalPages, newPage => {
-        renderExercises(newPage + 1);
+      renderPagination(state.currentPage, state.totalPages, newPage => {
+        renderExercises(newPage);
       }, '.exercises-content-wrapper');
     } else {
       clearPagination();

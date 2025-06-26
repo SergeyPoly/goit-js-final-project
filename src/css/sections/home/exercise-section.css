@@ -102,10 +102,14 @@
         border-radius: 30px;
         background-color: var(--primary);
 
+        &.visually-hidden {
+          display: none;
+        }
+
         @media screen and (min-width: 768px) {
           margin-top: 0;
         }
-
+        
         .search-input {
           flex: 1;
           height: inherit;
@@ -278,7 +282,7 @@
         }
       }
 
-      .exercises-list {
+      .exercises-list-wrapper {
         max-width: none;
         display: grid;
         grid-template-columns: 1fr;
