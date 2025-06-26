@@ -2,7 +2,7 @@
   width: 335px;
 }
 
-.quote-card {
+.quote-favorite-card {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -44,6 +44,7 @@
   font-size: 14px;
   line-height: 18px;
   margin-bottom: 16px;
+  height: 104px;
 }
 
 .card-author {
@@ -107,7 +108,7 @@
     width: 704px;
   }
 
-  .quote-card {
+  .quote-favorite-card {
     width: 704px;
     height: 220px;
     padding: 40px;
@@ -118,6 +119,7 @@
   }
 
   .card-header-container {
+    width: 574px;
     margin-bottom: 6px;
   }
 
@@ -133,6 +135,7 @@
   }
 
   .card-description {
+    height: 60px;
     margin-bottom: 18px;
   }
   
@@ -166,7 +169,11 @@
       width: 494px;
     }
 
-    .quote-card {
+    .card-header-container {
+      width: 364px;
+    }
+
+    .quote-favorite-card {
       width: 494px;
       height: 230px;
     }
@@ -174,6 +181,10 @@
     .card-author {
       font-size: 16px;
       line-height: 24px;
+    }
+
+    .card-description {
+      height: 60px;
     }
 
     .fact-card, .fact-support-image {
