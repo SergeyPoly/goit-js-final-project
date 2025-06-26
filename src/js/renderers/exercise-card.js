@@ -1,4 +1,5 @@
 import { EXERCISE_CARD_ACTIONS, EXERCISE_CARD_CLASS_NAME } from '../constants';
+import { getIconPath } from '../utils/get-icon-path';
 
 export function renderExerciseCard(exercise, isFavorite) {
   return `
@@ -8,15 +9,19 @@ export function renderExerciseCard(exercise, isFavorite) {
         <div class="exercise-card-header-middle">
           ${
             isFavorite
-              ? `<button data-action="${EXERCISE_CARD_ACTIONS.REMOVE_FAVORITE}" class="card-icon-button remove-favorite-button">
+              ? `<button data-action="${
+                  EXERCISE_CARD_ACTIONS.REMOVE_FAVORITE
+                }" class="card-icon-button remove-favorite-button">
                   <svg class="remove-favorite-icon">
-                    <use href="./img/icons.svg#trash-icon"></use>
+                    <use href="${getIconPath('trash-icon')}"></use>
                   </svg>
                 </button>`
-              : `<button data-action="${EXERCISE_CARD_ACTIONS.RATE}" class="card-icon-button rating-button">
+              : `<button data-action="${
+                  EXERCISE_CARD_ACTIONS.RATE
+                }" class="card-icon-button rating-button">
                   ${exercise.rating}
                   <svg class="rating-icon">
-                    <use href="./img/icons.svg#star-filled-icon"></use>
+                    <use href="${getIconPath('star-filled-icon')}"></use>
                   </svg>
                 </button>`
           }
@@ -26,14 +31,14 @@ export function renderExerciseCard(exercise, isFavorite) {
         }" class="start-button">
           Start
           <svg class="arrow-icon" width="13" height="13">
-            <use href="./img/icons.svg#arrow-icon"></use>
+            <use href="${getIconPath('arrow-icon')}"></use>
           </svg>
         </button>
       </div>
       <div class="exercise-card-body">
         <div class="exercise-name-container">
           <svg class="exercise-icon" width="24" height="24">
-            <use href="./img/icons.svg#running-man-icon"></use>
+            <use href="${getIconPath('running-man-icon')}"></use>
           </svg>
           <h3 class="exercise-name">${exercise.name}</h3>
         </div>
@@ -41,7 +46,7 @@ export function renderExerciseCard(exercise, isFavorite) {
       <div class="exercise-card-footer">
         <p class="card-footer-text">
           <span class="secondary-text">Burned calories:</span>
-          ${exercise.burnedCalories} /${exercise.time} min
+          ${exercise.burnedCalories} / ${exercise.time} min
         </p>
         <p class="card-footer-text">
           <span class="secondary-text">Body part:</span>

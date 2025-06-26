@@ -1,0 +1,240 @@
+.exercise-modal__backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: #04040466;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+
+  opacity: 0;
+  pointer-events: none;
+
+  transition: opacity var(--modal-transition),
+    visibility var(--modal-transition);
+}
+
+.exercise-modal__backdrop.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.exercise-modal {
+  color: var(--primary);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: var(--secondary);
+  width: 335px;
+  padding: 40px 20px;
+  border-radius: 16px;
+  position: relative;
+}
+
+.exercise-modal__close-btn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+}
+
+.exercise-modal__close-icon {
+  width: 24px;
+  height: 24px;
+  fill: var(--primary);
+  stroke: var(--primary);
+}
+
+.exercise-modal__image-wrapper {
+  min-width: 295px;
+}
+
+.exercise-modal__image {
+  border-radius: 16px;
+}
+
+.exercise-modal__info-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.exercise-modal__title-block {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.exercise-modal__name {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1;
+}
+
+.exercise-modal__rating {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.exercise-modal__rating-value {
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.exercise-modal__stars {
+  display: flex;
+  gap: 2px;
+  align-items: center;
+}
+
+.exercise-modal__star-icon {
+  width: 18px;
+  height: 18px;
+  fill: #f4f4f433;
+  stroke: #f4f4f433;
+}
+
+.exercise-modal__info-list {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 10px 0;
+  border-bottom: 1px solid #f4f4f433;
+  border-top: 1px solid #f4f4f433;
+}
+
+.exercise-modal__info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.exercise-modal__label {
+  color: #f4f4f466;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.exercise-modal__value {
+  font-weight: 500;
+  line-height: 18px;
+}
+
+.exercise-modal__description {
+  color: var(--primary60);
+  line-height: 18px;
+}
+
+.exercise-modal__buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.exercise-modal__fav-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--secondary);
+  background-color: var(--primary);
+  padding: 12px 0;
+  border-radius: 30px;
+  border: 1px solid transparent;
+  transition: var(--primary-transition);
+}
+
+.exercise-modal__fav-btn:hover,
+.exercise-modal__fav-btn:focus {
+  color: var(--primary);
+  background-color: var(--secondary);
+  border: 1px solid var(--primary);
+
+  .exercise-modal__fav-icon {
+    stroke: var(--primary);
+  }
+}
+
+.exercise-modal__fav-icon {
+  fill: none;
+  stroke: var(--secondary);
+  transition: var(--primary-transition);
+}
+
+.exercise-modal__rating-btn {
+  padding: 12px 0;
+  border-radius: 30px;
+  border: 1px solid var(--primary);
+  transition: var(--primary-transition);
+}
+
+.exercise-modal__rating-btn:hover,
+.exercise-modal__rating-btn:focus {
+  color: var(--secondary);
+  background-color: var(--primary);
+  border: 1px solid transparent;
+}
+
+@media (min-width: 768px) {
+  .exercise-modal {
+    flex-direction: row;
+    gap: 32px;
+    width: 704px;
+    padding: 32px;
+  }
+
+  .exercise-modal__close-btn {
+    top: 16px;
+    right: 16px;
+  }
+
+  .exercise-modal__close-icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .exercise-modal__image-wrapper {
+    min-width: 270px;
+  }
+
+  .exercise-modal__info-wrapper {
+    gap: 16px;
+  }
+
+  .exercise-modal__title-block {
+    gap: 8px;
+  }
+
+  .exercise-modal__name {
+    font-size: 24px;
+    line-height: 32px;
+  }
+
+  .exercise-modal__info-list {
+    gap: 16px;
+    padding: 8px 0;
+  }
+
+  .exercise-modal__buttons {
+    flex-direction: row;
+    justify-content: space-evenly;
+    gap: 0;
+    margin-top: 48px;
+  }
+
+  .exercise-modal__fav-btn {
+    font-size: 16px;
+    line-height: 24px;
+    padding: 12px 16px;
+  }
+
+  .exercise-modal__rating-btn {
+    font-size: 16px;
+    line-height: 24px;
+    padding: 12px 16px;
+  }
+}
