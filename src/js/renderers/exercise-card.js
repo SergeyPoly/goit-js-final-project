@@ -1,4 +1,5 @@
 import { EXERCISE_CARD_ACTIONS, EXERCISE_CARD_CLASS_NAME } from '../constants';
+import spritePath from '/img/icons.svg?url';
 
 export function renderExerciseCard(exercise, isFavorite) {
   return `
@@ -16,7 +17,7 @@ export function renderExerciseCard(exercise, isFavorite) {
               : `<button data-action="${EXERCISE_CARD_ACTIONS.RATE}" class="card-icon-button rating-button">
                   ${exercise.rating}
                   <svg class="rating-icon">
-                    <use href="./img/icons.svg#star-filled-icon"></use>
+                    <use href="${spritePath}#star-filled-icon"></use>
                   </svg>
                 </button>`
           }
