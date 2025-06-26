@@ -1,5 +1,11 @@
 .exercises-list {
   display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.exercises-list-wrapper {
+  display: flex;
   flex-wrap: wrap;
   gap: 20px;
   max-width: 335px;
@@ -7,7 +13,7 @@
   align-content: flex-start;
 }
 
-.exercises-list.favorites:has(.exercise-card) {
+.exercises-list-wrapper.favorites:has(.exercise-card) {
   padding-top: 20px;
 }
 
@@ -156,17 +162,104 @@
   text-transform: none;
 }
 
+/* PAGINATION */
+
+.pagination,
+.arrow-buttons,
+.page-buttons {
+  display: flex;
+  align-items: center;
+}
+
+.pagination {
+  margin-top: 32px;
+  justify-content: center;
+  gap: 20px;
+}
+
+.arrow-buttons {
+  gap: 4px;
+}
+
+.page-buttons {
+  gap: 8px;
+}
+
+.pagination-ellipsis {
+  font-size: 24px;
+  line-height: 32px;
+  color: var(--inactive-pagination);
+}
+
+.page-button {
+  font-size: 24px;
+  height: 32px;
+  color: var(--inactive-pagination);
+  cursor: pointer;
+  transition: color var(--primary-transition);
+}
+
+.page-button:hover {
+  color: var(--secondary);
+}
+
+.page-button.active,
+.page-button.arrow {
+  width: 32px;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 50%;
+  color: var(--secondary);
+  border-color: var(--secondary);
+}
+
+.pagination-arrow-icon {
+  width: 20px;
+  height: 20px;
+  fill: var(--secondary);
+}
+
+.pagination-arrow-icon.double {
+  width: 31px;
+  height: 24px;
+}
+
+.page-button.active,
+.page-button.arrow.disabled {
+  pointer-events: none;
+}
+
+.page-button.arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity var(--primary-transition);
+}
+
+.page-button.arrow:hover {
+  opacity: 0.7;
+}
+
+.page-button.arrow.disabled {
+  color: var(--inactive-pagination);
+  border-color: var(--inactive-pagination);
+}
+
+.page-button.arrow.disabled .pagination-arrow-icon {
+  fill: var(--inactive-pagination);
+}
+
 @media (min-width: 768px) {
-  .exercises-list {
+  .exercises-list-wrapper {
     max-width: calc(344px * 2 + 16px);
     gap: 32px 16px;
   }
 
-  .exercises-list.favorites:has(.exercise-card) {
+  .exercises-list-wrapper.favorites:has(.exercise-card) {
     padding-top: 44px;
   }
 
-  .exercises-list:has(.no-exercises-message) {
+  .exercises-list-wrapper:has(.no-exercises-message) {
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -198,11 +291,11 @@
 }
 
 @media (min-width: 1440px) {
-  .exercises-list {
+  .exercises-list-wrapper {
     max-width: calc(405px * 2 + 16px);
   }
 
-  .exercises-list.favorites:has(.exercise-card) {
+  .exercises-list-wrapper.favorites:has(.exercise-card) {
     padding-top: unset;
   }
 }
