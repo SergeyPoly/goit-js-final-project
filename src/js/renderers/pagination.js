@@ -24,13 +24,13 @@ function renderArrowButton(direction, double, page, disabled) {
   </button>`;
 }
 
-export function renderPagination(currentPage, totalPages, onPageChange) {
+export function renderPagination(currentPage, totalPages, onPageChange, contentBlock = '.exercises-list') {
   let paginationContainer = document.querySelector('.pagination');
 
   if (!paginationContainer) {
     paginationContainer = document.createElement('div');
     paginationContainer.className = 'pagination';
-    document.querySelector('.exercises-list').appendChild(paginationContainer);
+    document.querySelector(contentBlock).appendChild(paginationContainer);
   } else {
     paginationContainer.innerHTML = ''; // Clear previous pagination
   }

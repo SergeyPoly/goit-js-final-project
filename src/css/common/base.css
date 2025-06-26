@@ -62,14 +62,15 @@ main,
 
 .container {
   max-width: 375px;
+  width: 100%;
   padding: 0 20px;
   margin: 0 auto;
 }
 
 .section-title {
-  font-size: 28px;
-  line-height: 38px;
-  letter-spacing: 0.02em;
+  font-size: 1.75rem;
+  line-height: 1.35714286;
+  letter-spacing: -0.02em;
   margin-bottom: 20px;
   font-weight: 400;
 }
@@ -109,8 +110,7 @@ main,
 
 @media (min-width: 768px) {
   .container {
-    max-width: unset;
-    width: 768px;
+    max-width: 768px;
     padding: 0 32px;
   }
 
@@ -136,7 +136,7 @@ main,
 
 @media (min-width: 1440px) {
   .container {
-    width: 1440px;
+    max-width: 1440px;
     padding: 0 32px;
   }
 
@@ -147,5 +147,7 @@ main,
 
   .section-title {
     margin-bottom: 32px;
+    font-size: 2.75rem;
+    line-height: 1.09090909;
   }
 }

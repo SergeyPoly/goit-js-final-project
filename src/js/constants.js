@@ -7,3 +7,15 @@ export const EXERCISE_CARD_ACTIONS = Object.freeze({
   RATE: 'rate',
   REMOVE_FAVORITE: 'removeFavorite',
 });
+
+export const SECTION_EXERCISE_CONFIG = Object.freeze({
+  LIMITS: {
+    DESKTOP_LARGE: 12,
+    DESKTOP: 9,
+    EXERCISES_LIST: 10
+  },
+  BREAKPOINTS: {
+    DESKTOP_LARGE: 1440
+  },
+  DEFAULT_FILTER: 'Muscles'
+});

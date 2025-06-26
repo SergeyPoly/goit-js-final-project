@@ -12,6 +12,7 @@
 /* Sections style */
 @import url('./sections/header.css');
 @import url('./sections/exercises-list.css');
+@import url('./sections/home/exercise-section.css');
 @import url('./sections/home/hero-section.css');
 @import url('./sections/home/quote-section.css');
 @import url('./sections/favorites/quote-section.css');

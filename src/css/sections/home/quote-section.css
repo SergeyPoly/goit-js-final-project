@@ -5,21 +5,21 @@
 }
 
 .home-quote {
-  width: 444px;
-  display: flex;
-  flex-direction: column;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
   gap: 20px;
 }
 
 .quote-container {
-  min-width: 243px;
+  width: 100%;
 }
 
 .quote-card {
   box-sizing: border-box;
   display: flex;
   gap: 18px;
-  width: 335px;
+  width: 100%;
   background-color: var(--quote-box-color);
   color: var(--quote-title-color);
   font-size: 14px;
@@ -55,7 +55,6 @@
 
 .icon-body-container {
   min-width: 32px;
-  max-width: 32px;
   height: 32px;
   background-color: rgb(244, 244, 244, 0.2);
   display: flex;
@@ -72,7 +71,7 @@
 
 .two-women-image-container {
   border-radius: 16px;
-  width: 335px;
+  width: 100%;
   height: 242px;
   overflow: hidden;
   position: relative;
@@ -93,7 +92,6 @@
   box-sizing: border-box;
   display: flex;
   gap: 18px;
-  width: 335px;
   height: 201px;
   color: var(--quote-box-color);
   font-size: 14px;
@@ -137,15 +135,12 @@
 
 @media (min-width: 768px) {
   .home-quote {
-    width: 100%;
-    flex-direction: row;
-    flex-wrap: wrap;
+    grid-template-columns: 0.581395fr 0.418605fr;
     gap: 32px 16px;
   }
 
   .quote-card {
     padding: 40px;
-    width: 400px;
   }
 
   .daily-norm-card {
@@ -154,7 +149,6 @@
   }
 
   .two-women-image-container {
-    width: 288px;
     height: 249px;
   }
 
@@ -165,21 +159,19 @@
   }
 
   .two-women-image {
-    width: 288px;
     height: 249px;
     object-fit: cover;
   }
 
   .daily-norm-card {
-    width: 400px;
+    width: 100%;
   }
 }
 
 @media (min-width: 1440px) {
   .home-quote {
-    width: 444px;
-    flex-direction: column;
-    flex-wrap: nowrap;
+    grid-template-columns: 1fr;
+    grid-template-rows: max-content 242px auto;
   }
 
   .quote-title,

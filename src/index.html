@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Your Energy</title>
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -27,13 +27,7 @@
 
     <main>
       <load src="./partials/home/hero-section.html" />
-      <div class="container">
-        <h2 class="section-title">Exercises</h2>
-        <div class="home-content">
-          <load src="./partials/home/quote-section.html" />
-          <load src="./partials/exercises-list.html" />
-        </div>
-      </div>
+      <load src="./partials/home/exercises-section.html" />
     </main>
 
     <load src="./partials/footer.html" />
@@ -41,15 +35,6 @@
     <load src="./partials/mobile-menu.html" />
 
     <load src="./partials/modal.html" />
-
-    <!-- for demonstration purposes, will be removed later -->
-    <span class="loader"></span>
-    <button
-      class="test-btn button dark"
-      style="margin: 10px auto; display: block"
-    >
-      TEST HIDING
-    </button>
 
     <script type="module" src="./main.js"></script>
   </body>
