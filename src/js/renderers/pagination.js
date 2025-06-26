@@ -1,3 +1,5 @@
+import { getIconPath } from '../utils/get-icon-path';
+
 const MAX_PAGES = 3;
 
 function renderEllipsis() {
@@ -15,9 +17,9 @@ function renderArrowButton(direction, double, page, disabled) {
     disabled ? 'disabled' : ''
   }" data-page="${page}">
     <svg class="pagination-arrow-icon ${double ? 'double' : ''}">
-      <use href="./img/icons.svg#pagination-arrow${
-        double ? '-double' : ''
-      }-${direction}-icon"></use>
+      <use href="${getIconPath(
+        `pagination-arrow${double ? '-double' : ''}-${direction}-icon`
+      )}"></use>
     </svg>
   </button>`;
 }
