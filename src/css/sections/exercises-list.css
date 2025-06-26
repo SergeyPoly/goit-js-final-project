@@ -78,6 +78,7 @@
   width: 12px;
   height: 13.33px;
   fill: none;
+  stroke: var(--secondary);
 }
 
 .rating-button {
