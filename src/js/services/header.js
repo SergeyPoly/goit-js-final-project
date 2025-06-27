@@ -19,10 +19,18 @@ export function loadHeader() {
   }
 
   const navLinks = document.querySelectorAll('.nav-link');
-  const currentPath = window.location.pathname;
+  let currentPath = window.location.pathname;
+
+  if (currentPath.endsWith('/') || currentPath.endsWith('/index.html')) {
+    currentPath = '/index.html';
+  }
 
   navLinks.forEach(link => {
-    const linkPath = new URL(link.href).pathname;
+    let linkPath = new URL(link.href).pathname;
+
+    if (linkPath.endsWith('/') || linkPath.endsWith('/index.html')) {
+      linkPath = '/index.html';
+    }
 
     if (linkPath === currentPath) {
       link.classList.add('active');
