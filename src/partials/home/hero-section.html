@@ -1,40 +1,52 @@
 <section class="hero">
   <div class="container">
-    <div class="hero-top">
-      <div class="hero-content">
-        <h1>
-          <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" clip-rule="evenodd" d="M26.7271 25.3227L27.4083 26.021L19.0348 2.02583L28.6289 24.502L29.0121 25.3997L29.0451 24.4247L29.872 0L30.6989 24.4242L30.732 25.3997L31.115 24.5024L40.7093 2.02583L32.6573 25.0994L32.3357 26.021L33.017 25.3227L50.0829 7.82973L34.2395 26.4365L33.6067 27.1797L56.7269 16.6278L35.2319 28.2549L34.3734 28.7193L35.3473 28.6622L59.744 27.2319L34.5321 30.4318L58.7268 38.2099L35.0087 32.3213L34.0614 32.0861L34.8196 32.7L53.8125 48.079L33.8233 34.0201L33.0249 33.4586L33.5101 34.3049L45.665 55.5065L32.1043 35.176L31.5626 34.364L35.3845 59.4892L29.872 34.68L24.3595 59.4892L28.0346 35.329L28.1814 34.364L27.6401 35.1756L14.0791 55.5065L26.2337 34.3054L26.7191 33.4586L25.9212 34.0198L5.93151 48.079L24.9241 32.7003L25.6827 32.0861L24.7358 32.3211L1.01726 38.2099L24.2827 30.7305L25.212 30.4318L0 27.2319L25.3707 28.7193L24.5126 28.2551L3.01713 16.6278L26.1373 27.1797L9.66116 7.82973L26.7271 25.3227ZM28.471 26.3835L27.2592 27.1338L26.4002 28.2712L26.0102 29.6421L26.1417 31.0614L26.777 32.3373L27.8303 33.2975L29.1594 33.8124H30.5847L31.9137 33.2975L32.9671 32.3373L33.6024 31.0614L33.7339 29.6421L33.3438 28.2712L32.4849 27.1338L31.2731 26.3835L29.872 26.1216L28.471 26.3835Z" fill="#242424"/>
+    <div class="hero-top-section">
+      <div class="hero-title-block">
+        <h1 class="hero-title">
+          <svg class="sun-icon">
+            <use href="/img/icons.svg#sun-icon" />
           </svg>
-          Get <span class="body-text">Body</span> in<br> shape, Stay healthy
+          Get <span>Body</span> in shape, Stay healthy
         </h1>
-        <p>Transform your physique and embrace a healthier lifestyle with<br> our comprehensive fitness and nutrition support.</p>
+        <p class="hero-subtitle">Transform your physique and embrace a healthier lifestyle with our comprehensive fitness and nutrition support.</p>
       </div>
-      <div class="image-container">
-        <div class="mini-image">
-          <img src="/img/hero-min.png" alt="Fitness duo">
+      <div class="hero-top-tags">
+        <div class="tags-image">
+          <img
+            srcset="
+              ./img/tags.jpg    1x,
+              ./img/tags@2x.jpg 2x
+            "
+            src="./img/tags.jpg" alt="young women doing fitness outdoors together">
         </div>
-        <div class="tags-container">
-          <a href="#" class="hashtag">#Sport</a>
-          <a href="#" class="hashtag">#Healthy</a>
-          <a href="#" class="hashtag">#Workout</a>
-          <a href="#" class="hashtag">#Diet</a>
-        </div>
+        <ul class="top-tags-container">
+          <li>
+            <a href="#" class="hashtag">&#x23;Sport</a>
+          <li>
+          <a href="#" class="hashtag">&#x23;Healthy</a>
+          </li>
+          <li>
+            <a href="#" class="hashtag">&#x23;Workout</a>
+          </li>
+          <li>
+            <a href="#" class="hashtag">&#x23;Diet</a>
+          </li>
+        </ul>
       </div>
     </div>
-    <div class="hero-image">
-      <picture>
-        <source media="(max-width: 799px)" srcset="/img/hero-mobile.png">
-        <source media="(min-width: 800px) and (max-width: 1024px)" srcset="/img/hero-tablet.png">
-        <source media="(min-width: 1025px)" srcset="/img/hero-desktop.png">
-        <img src="/img/hero-desktop.png" alt="Fitness duo">
-      </picture>
-    </div>
-    <div class="bottom-tags-container">
-      <a href="#" class="hashtag">#Sport</a>
-      <a href="#" class="hashtag">#Healthy</a>
-      <a href="#" class="hashtag">#Workout</a>
-      <a href="#" class="hashtag">#Diet</a>
-    </div>
+    <div class="hero-image"></div>
+    <ul class="bottom-tags-container">
+      <li>
+        <a href="#" class="hashtag">&#x23;Sport</a>
+      <li>
+        <a href="#" class="hashtag">&#x23;Healthy</a>
+      </li>
+      <li>
+        <a href="#" class="hashtag">&#x23;Workout</a>
+      </li>
+      <li>
+        <a href="#" class="hashtag">&#x23;Diet</a>
+      </li>
+    </ul>
   </div>
 </section>
