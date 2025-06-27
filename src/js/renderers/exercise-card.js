@@ -19,7 +19,7 @@ export function renderExerciseCard(exercise, isFavorite) {
               : `<button data-action="${
                   EXERCISE_CARD_ACTIONS.RATE
                 }" class="card-icon-button rating-button">
-                  ${exercise.rating}
+                  ${exercise.rating.toFixed(1)}
                   <svg class="rating-icon">
                     <use href="${getIconPath('star-filled-icon')}"></use>
                   </svg>
