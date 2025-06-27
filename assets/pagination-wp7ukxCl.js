@@ -110,4 +110,4 @@ import{i as C,a as T}from"./vendor-CLZFq-H_.js";(function(){const t=document.cre
         ${_("right",!0,t,a)}
       </div>
     `}o.insertAdjacentHTML("beforeend",n),o.onclick=a=>{const y=a.target.nodeName==="BUTTON"?a.target:a.target.closest(".pagination button");if(y){const $=parseInt(y.dataset.page,10);$!==e&&s($)}}}export{q as E,Y as S,te as a,ne as b,ee as c,x as d,Z as g,se as l,oe as r};
-//# sourceMappingURL=pagination-DMaF5ENc.js.map
+//# sourceMappingURL=pagination-wp7ukxCl.js.map
