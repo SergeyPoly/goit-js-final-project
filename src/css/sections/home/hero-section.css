@@ -35,6 +35,8 @@
 
 .tags-image {
   margin-top: 12px;
+  width: 168px;
+  margin-left: auto;
   overflow: hidden;
   border-radius: 20px;
   margin-bottom: 32px;
