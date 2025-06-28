@@ -9,6 +9,7 @@
 
   opacity: 0;
   pointer-events: none;
+  overflow-x: scroll;
 
   transition: opacity var(--modal-transition),
     visibility var(--modal-transition);
@@ -21,14 +22,18 @@
 
 .exercise-modal {
   color: var(--primary);
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
   background: var(--secondary);
   width: 335px;
   padding: 40px 20px;
   border-radius: 16px;
   position: relative;
+  margin-top: 60px;
+}
+
+.exercise-modal__content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .exercise-modal__close-btn {
@@ -181,10 +186,14 @@
 
 @media (min-width: 768px) {
   .exercise-modal {
-    flex-direction: row;
-    gap: 32px;
+    margin-top: 0;
     width: 704px;
     padding: 32px;
+  }
+
+  .exercise-modal__content {
+    flex-direction: row;
+    gap: 32px;
   }
 
   .exercise-modal__close-btn {
@@ -221,8 +230,8 @@
 
   .exercise-modal__buttons {
     flex-direction: row;
-    justify-content: space-evenly;
-    gap: 0;
+    justify-content: end;
+    gap: 7px;
     margin-top: 48px;
   }
 
