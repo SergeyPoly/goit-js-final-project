@@ -26,7 +26,7 @@ function renderSendBtn() {
   return `
     <button
       type="button"
-      class="exercise-modal__fav-btn"
+      class="exercise-modal__fav-btn rating-modal__btn"
       data-action="send"
     >
       Send
@@ -37,7 +37,7 @@ function renderSendBtn() {
 function renderRating(rating) {
   return `
     <div class="exercise-modal__rating">
-      <span class="exercise-modal__rating-value">${rating}</span>
+      <span class="exercise-modal__rating-value rating-modal__rating-value">${rating}</span>
       <div class="exercise-modal__stars">
         ${renderStars(rating)}
       </div>
@@ -65,20 +65,24 @@ export function createRatingModal(exerciseId) {
   let rating = 0;
   const modalHtml = `
     <div id="ratingModalBackdrop" class="exercise-modal__backdrop">
-      <div class="exercise-modal">
+      <div class="exercise-modal rating-modal">
         <button class="exercise-modal__close-btn" type="button">
           <svg class="exercise-modal__close-icon">
             <use href="${getIconPath('close-icon')}"></use>
           </svg>
         </button>
-        <form id="rating-form" class="exercise-modal__info-wrapper">
-          <p class="rating-modal__title">Rating</p>
-          <div class="exercise-modal__title-block">
-            ${renderRating(rating)}
+        <form id="rating-form" class="exercise-modal__info-wrapper rating-modal__wrapper">
+          <div class="rating-modal__item-group rating-modal__rating-group">
+            <p class="rating-modal__title">Rating</p>
+            <div class="exercise-modal__title-block">
+              ${renderRating(rating)}
+            </div>
           </div>
-          <input id="email" class="rating-modal__text-input" name="email" pattern="[^@]+@[^@]+" placeholder="Email" />
-          <textarea id="review" class="rating-modal__review-textarea" name="review" placeholder="Your comment"></textarea>
-          <div class="exercise-modal__buttons">
+          <div class="rating-modal__item-group">
+            <input id="email" class="footer-input" name="email" pattern="[^@]+@[^@]+" placeholder="Email" />
+            <textarea id="review" class="footer-input rating-modal__review-textarea" name="review" placeholder="Your comment"></textarea>
+          </div>
+          <div class="exercise-modal__buttons rating-modal__item-group">
             ${renderSendBtn()}
           </div>
         </form>
