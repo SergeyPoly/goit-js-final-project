@@ -59,7 +59,7 @@ import{i as N,a as A}from"./vendor-D9ezOI0e.js";(function(){const t=document.cre
   `}function C(e){return`
     <div class="exercise-modal__rating">
       <span class="exercise-modal__rating-value rating-modal__rating-value">${e}</span>
-      <div class="exercise-modal__stars">
+      <div class="exercise-modal__stars rating-modal__stars">
         ${Q(e)}
       </div>
       <input name="rating" hidden="hidden" value="${e}">
@@ -89,7 +89,7 @@ import{i as N,a as A}from"./vendor-D9ezOI0e.js";(function(){const t=document.cre
         </form>
       </div>
     </div>
-  `;document.querySelector("#ratingModalBackdrop")?.remove(),document.body.insertAdjacentHTML("beforeend",s);const n=document.getElementById("ratingModalBackdrop"),o=J();document.body.classList.add("modal-open"),document.documentElement.style.setProperty("--scrollbar-width",`${o}px`),setTimeout(()=>{n.classList.add("is-open")},50);const a=()=>{n.classList.remove("is-open"),setTimeout(()=>{document.body.classList.remove("modal-open"),document.documentElement.style.removeProperty("--scrollbar-width"),n.remove()},300),document.removeEventListener("keydown",i)};n.querySelector(".exercise-modal__close-btn").addEventListener("click",a),n.addEventListener("click",c=>{c.target===n&&a()});function i(c){c.key==="Escape"&&a()}document.addEventListener("keydown",i),n.querySelector(".exercise-modal__buttons").addEventListener("click",c=>{const l=c.target.closest("[data-action]");if(console.log("Button click",l),!l)return;if(l.dataset.action==="send"){let u=n.querySelector("#rating-form"),g=u.elements.rating.value|0,_=u.elements.email.value,r=u.elements.review.value;console.log({exerciseId:e,rating:g,email:_,review:r}),D(e,g,_,r)}l.outerHTML=w()}),I(n)}const Y=()=>window.innerWidth-document.documentElement.clientWidth;function b(e){return e.charAt(0).toUpperCase()+e.slice(1)}function Z(e){const t=Math.floor(e);let s="";for(let n=0;n<5;n++){let o=n<t?"star-filled-icon":"star-icon";s+=`
+  `;document.querySelector("#ratingModalBackdrop")?.remove(),document.body.insertAdjacentHTML("beforeend",s);const n=document.getElementById("ratingModalBackdrop"),o=J();document.body.classList.add("modal-open"),document.documentElement.style.setProperty("--scrollbar-width",`${o}px`),setTimeout(()=>{n.classList.add("is-open")},50);const a=()=>{n.classList.remove("is-open"),setTimeout(()=>{document.body.classList.remove("modal-open"),document.documentElement.style.removeProperty("--scrollbar-width"),n.remove()},300),document.removeEventListener("keydown",i)};n.querySelector(".exercise-modal__close-btn").addEventListener("click",a),n.addEventListener("click",c=>{c.target===n&&a()});function i(c){c.key==="Escape"&&a()}document.addEventListener("keydown",i),n.querySelector(".exercise-modal__buttons").addEventListener("click",c=>{const l=c.target.closest("[data-action]");if(console.log("Button click",l),!l)return;if(l.dataset.action==="send"){let u=n.querySelector("#rating-form"),_=u.elements.rating.value|0,g=u.elements.email.value,r=u.elements.review.value;console.log({exerciseId:e,rating:_,email:g,review:r}),D(e,_,g,r)}l.outerHTML=w()}),I(n)}const Y=()=>window.innerWidth-document.documentElement.clientWidth;function b(e){return e.charAt(0).toUpperCase()+e.slice(1)}function Z(e){const t=Math.floor(e);let s="";for(let n=0;n<5;n++){let o=n<t?"star-filled-icon":"star-icon";s+=`
       <svg class="exercise-modal__star-icon">
         <use href="${d(o)}"></use>
       </svg>
@@ -154,10 +154,10 @@ import{i as N,a as A}from"./vendor-D9ezOI0e.js";(function(){const t=document.cre
         ${x("left",!0,1,r)}
         ${x("left",!1,e-1,r)}
       </div>
-    `}let u="";for(let r=l;r<=c;r+=1)u+=ne(r,e);const g=l>1,_=c<t;if(g&&(u=`${M()}${u}`),_&&(u+=M()),a+=`<div class="page-buttons">${u}</div>`,m){const r=e===t;a+=`
+    `}let u="";for(let r=l;r<=c;r+=1)u+=ne(r,e);const _=l>1,g=c<t;if(_&&(u=`${M()}${u}`),g&&(u+=M()),a+=`<div class="page-buttons">${u}</div>`,m){const r=e===t;a+=`
       <div class="arrow-buttons">
         ${x("right",!1,e+1,r)}
         ${x("right",!0,t,r)}
       </div>
     `}o.insertAdjacentHTML("beforeend",a),o.onclick=r=>{const L=r.target.nodeName==="BUTTON"?r.target:r.target.closest(".pagination button");if(L){const S=parseInt(L.dataset.page,10);S!==e&&s(S)}}}export{F as E,ie as S,le as a,pe as b,ce as c,$ as d,re as g,ue as l,de as p,me as r};
-//# sourceMappingURL=pagination-CQ07zEXq.js.map
+//# sourceMappingURL=pagination-D86Fhnoh.js.map
