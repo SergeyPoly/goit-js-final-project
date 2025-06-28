@@ -2,6 +2,11 @@
   display: flex;
   flex-direction: column;
   flex: 1;
+
+  &:has(.no-exercises-message) {
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 .exercises-list-wrapper {
