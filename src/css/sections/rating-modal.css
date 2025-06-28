@@ -39,10 +39,8 @@
     min-width: 9px;
 }
 
-.rating-modal__star-wrapper {
-    width: 24px;
-    height: 24px;
-    display: flex;
+.rating-modal__stars {
+    cursor: pointer;
 }
 
 @media (min-width: 768px) {

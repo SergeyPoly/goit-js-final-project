@@ -38,7 +38,7 @@ function renderRating(rating) {
   return `
     <div class="exercise-modal__rating">
       <span class="exercise-modal__rating-value rating-modal__rating-value">${rating}</span>
-      <div class="exercise-modal__stars">
+      <div class="exercise-modal__stars rating-modal__stars">
         ${renderStars(rating)}
       </div>
       <input name="rating" hidden="hidden" value="${rating}">
