@@ -49,9 +49,9 @@ import{i as I,a as T}from"./vendor-D9ezOI0e.js";(function(){const t=document.cre
         <use href="${d(o)}"></use>
       </svg>
     `}return s}function S(e){const t=E().some(s=>s._id===e._id);return`
-    <button 
-      type="button" 
-      class="exercise-modal__fav-btn" 
+    <button
+      type="button"
+      class="exercise-modal__fav-btn"
       data-action="${t?"remove":"add"}"
     >
       ${t?"Remove from favorites":"Add to favorites"}
@@ -67,7 +67,9 @@ import{i as I,a as T}from"./vendor-D9ezOI0e.js";(function(){const t=document.cre
             <use href="${d("close-icon")}"></use>
           </svg>
         </button>
-        <div class="exercise-modal__image-wrapper">
+
+        <div class="exercise-modal__content">
+      <div class="exercise-modal__image-wrapper">
           <img src="${e.gifUrl}" alt="${e.name}"class="exercise-modal__image" />
         </div>
         <div class="exercise-modal__info-wrapper">
@@ -88,10 +90,12 @@ import{i as I,a as T}from"./vendor-D9ezOI0e.js";(function(){const t=document.cre
             <li class="exercise-modal__info-item"><p class="exercise-modal__label">Burned calories</p><p class="exercise-modal__value">${e.burnedCalories}/${e.time} min</p></li>
           </ul>
           <p class="exercise-modal__description">${e.description}</p>
-          <div class="exercise-modal__buttons">
+        </div>
+        </div>
+
+        <div class="exercise-modal__buttons">
             ${S(e)}
             <button type="button" class="exercise-modal__rating-btn">Give a rating</button>
-          </div>
         </div>
       </div>
     </div>
@@ -110,4 +114,4 @@ import{i as I,a as T}from"./vendor-D9ezOI0e.js";(function(){const t=document.cre
         ${h("right",!0,t,r)}
       </div>
     `}o.insertAdjacentHTML("beforeend",n),o.onclick=r=>{const y=r.target.nodeName==="BUTTON"?r.target:r.target.closest(".pagination button");if(y){const $=parseInt(y.dataset.page,10);$!==e&&s($)}}}export{B as E,Z as S,se as a,ae as b,te as c,E as d,ee as g,ne as l,oe as p,ie as r};
-//# sourceMappingURL=pagination-Ck9Ohyre.js.map
+//# sourceMappingURL=pagination-RaQSDZzC.js.map
