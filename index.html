@@ -22,8 +22,8 @@
     />
     <script type="module" crossorigin src="/goit-js-final-project/index.js"></script>
     <link rel="modulepreload" crossorigin href="/goit-js-final-project/assets/vendor-D9ezOI0e.js">
-    <link rel="modulepreload" crossorigin href="/goit-js-final-project/assets/pagination-BHhuMvqX.js">
-    <link rel="stylesheet" crossorigin href="/goit-js-final-project/assets/pagination-BpGwlU_G.css">
+    <link rel="modulepreload" crossorigin href="/goit-js-final-project/assets/pagination-DUKDhYqm.js">
+    <link rel="stylesheet" crossorigin href="/goit-js-final-project/assets/pagination-CiLwF6W_.css">
   </head>
   <body>
     <header class="header">
@@ -232,14 +232,15 @@
     </main>
 
     <footer class="footer">
-  <div class="footer-wrapper container">
-    <div class="footer-top">
-      <div class="footer-left">
+  <div class="container">
+    <div class="footer-top-content">
+      <div class="logo-socials-block">
         <a class="footer-logo" href="./index.html" aria-label="Site logo">
           <svg class="footer-logo-icon" width="132" height="24">
             <use href="/goit-js-final-project/assets/icons-D_oQLUx2.svg#logo-icon"></use>
           </svg>
-        </a>        
+        </a>
+
         <ul class="footer-socials">
           <li class="footer-social-item">
             <a class="footer-social-link" href="https://www.facebook.com/goITclub/" target="_blank" aria-label="Facebook link">
@@ -262,37 +263,38 @@
               </svg>
             </a>
           </li>
-        </ul>        
+        </ul>
       </div>
 
-      <div class="footer-right">
+      <div class="footer-slogan-form-block">
         <h2 class="footer-slogan">
-          Transforming your <em>body</em> shape with us
+          Transforming your <span>body</span> shape with us
         </h2>
 
-        <div class="footer-form-block">
-          <p class="footer-desc">
+        <form class="footer-form">
+          <label for="footer-email">
             Subscribe and learn about new exercises!
-          </p>
-          <form class="footer-form">
-            <input
-              type="email"
-              class="footer-input"
-              placeholder="Email"
-              required
-            />
-            <button type="submit" class="footer-submit">Send</button>
-          </form>
-        </div>
+          </label>
+          <input
+            id="footer-email"
+            type="email"
+            class="footer-input"
+            placeholder="Email"
+            required
+          />
+          <button type="submit" class="button light">Send</button>
+        </form>
       </div>
     </div>
 
-    <div class="footer-bottom">
-      <p class="footer-copy">Your Energy. All rights reserved.</p>
-      <div class="footer-links">
-        <a href="#" class="footer-link">Privacy Policy</a>
-        <span>/</span>
-        <a href="#" class="footer-link">Terms of Service</a>
+    <div class="footer-bottom-content">
+      <div class="footer-subslogan-policy">
+        <p>Your Energy. All rights reserved.</p>
+        <div class="footer-links">
+          <a href="#" class="footer-link">Privacy Policy</a>
+          <span>/</span>
+          <a href="#" class="footer-link">Terms of Service</a>
+        </div>
       </div>
       <p class="footer-year">&#xa9; 2023</p>
     </div>
