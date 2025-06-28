@@ -1,9 +1,10 @@
-import { EXERCISES_PAGE_SIZE } from '../constants';
+import { EVENTS, EXERCISES_PAGE_SIZE } from '../constants';
 import { renderExercisesList } from '../renderers/exercises-list';
-import { renderPagination } from '../renderers/pagination';
+import { clearPagination, renderPagination } from '../renderers/pagination';
 import { getStoredExercises } from '../services/storage';
 import { loadHeader } from '../services/header.js';
 import { renderQuote } from '../renderers/quote.js';
+import { listenToEvent } from '../services/events.js';
 
 let page = 1;
 let favorites = getStoredExercises();
@@ -13,8 +14,13 @@ function handlePageChange(newPage) {
   renderFavoritesList();
 }
 
-function handleFavoriteDelete(exerciseId) {
+function handleFavoriteDeleted(exerciseId) {
   favorites = favorites.filter(exercise => exercise._id !== exerciseId);
+  renderFavoritesList();
+}
+
+function handleFavoriteAdded(exercise) {
+  favorites.push(exercise);
   renderFavoritesList();
 }
 
@@ -35,11 +41,13 @@ function renderFavoritesList() {
   renderExercisesList(
     exercisesToRender,
     "It appears that you haven't added any exercises to your favorites yet. To get started, you can add exercises that you like to your favorites for easier access in the future.",
-    { favorites: true, onFavoriteDelete: handleFavoriteDelete }
+    true
   );
 
   if (totalPages > 1) {
     renderPagination(page, totalPages, handlePageChange);
+  } else {
+    clearPagination();
   }
 }
 
@@ -47,4 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderFavoritesList();
   loadHeader();
   renderQuote();
+
+  listenToEvent(EVENTS.FAVORITE_REMOVED, handleFavoriteDeleted);
+  listenToEvent(EVENTS.FAVORITE_ADDED, handleFavoriteAdded);
 });

@@ -1,4 +1,4 @@
-import { EXERCISE_CARD_ACTIONS, EXERCISE_CARD_CLASS_NAME } from '../constants';
+import { EXERCISE_ACTIONS, EXERCISE_CARD_CLASS_NAME } from '../constants';
 import {
   handleRate,
   handleRemoveFavorite,
@@ -11,7 +11,7 @@ const listEl = document.querySelector('.exercises-list-wrapper');
 export function renderExercisesList(
   exercises,
   emptyMessage,
-  { favorites, onFavoriteDelete } = {}
+  favorites,
 ) {
   listEl.innerHTML = ''; // Clear the list before rendering
 
@@ -46,16 +46,15 @@ export function renderExercisesList(
     const action = target.dataset.action;
 
     switch (action) {
-      case EXERCISE_CARD_ACTIONS.REMOVE_FAVORITE:
-        handleRemoveFavorite(listEl, exerciseId);
-        onFavoriteDelete?.(exerciseId);
+      case EXERCISE_ACTIONS.REMOVE_FAVORITE:
+        handleRemoveFavorite(exerciseId);
         break;
 
-      case EXERCISE_CARD_ACTIONS.START:
+      case EXERCISE_ACTIONS.START:
         handleStart(exerciseId);
         break;
 
-      case EXERCISE_CARD_ACTIONS.RATE:
+      case EXERCISE_ACTIONS.RATE:
         handleRate(exerciseId);
         break;
 
