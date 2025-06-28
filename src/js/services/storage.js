@@ -55,6 +55,10 @@ export function getStoredExercises() {
   return [];
 }
 
+export function sendRating(ratingData) {
+
+}
+
 function validateExercise(exercise) {
   return (
     exercise &&
