@@ -67,7 +67,7 @@ export async function postSubscription(email) {
   const data = await makeRequest('post', '/subscription', { email });
 
   if (data) {
-    showSuccessMessage('Exercise details fetched successfully.');
+    showSuccessMessage(data?.message || 'Thank you for your subscription!');
   }
   return data;
 }
@@ -80,7 +80,7 @@ export async function patchRating(id, rate, email, review) {
   });
 
   if (data) {
-    showSuccessMessage('Thank you for your feedback.');
+    showSuccessMessage('Thank you for your feedback!');
   }
 
   return data;

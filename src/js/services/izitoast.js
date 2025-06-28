@@ -7,7 +7,7 @@ function showMessage(message, isError) {
     message,
     messageColor: 'white',
     position: 'topRight',
-    timeout: 4000,
+    timeout: 5000,
     color: isError ? '#EF4040' : '#00BFFF',
     maxWidth: '500px',
   });

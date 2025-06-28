@@ -78,26 +78,27 @@ main,
 .button {
   font-size: 16px;
   line-height: 24px;
-  height: 48px;
+  height: 42px;
   cursor: pointer;
   border-radius: 30px;
   transition: background-color var(--primary-transition);
 }
 
 .button.light {
-  border: 1 px solid var(--primary);
+  border: 1 px solid var(--secondary);
   background-color: var(--primary);
   color: var(--secondary);
 }
 
 .button.light:hover,
 .button.light:focus {
+  border: 1px solid var(--primary);
   background-color: var(--secondary);
   color: var(--primary);
 }
 
 .button.dark {
-  border: 1 px solid var(--primary);
+  border: 1px solid var(--primary);
   background-color: var(--secondary);
   color: var(--primary);
 }
@@ -128,10 +129,11 @@ main,
     grid-template-columns: 494px;
   }
 
-  /*.button {*/
-  /*  font-size: 18px;*/
-  /*  line-height: 28px;*/
-  /*}*/
+  .button {
+    height: 48px;
+    font-size: 16px;
+    line-height: 24px;
+  }
 }
 
 @media (min-width: 1440px) {
