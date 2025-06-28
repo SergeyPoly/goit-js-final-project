@@ -24,7 +24,12 @@ function renderArrowButton(direction, double, page, disabled) {
   </button>`;
 }
 
-export function renderPagination(currentPage, totalPages, onPageChange, contentBlock = '.exercises-list') {
+export function renderPagination(
+  currentPage,
+  totalPages,
+  onPageChange,
+  contentBlock = '.exercises-list'
+) {
   let paginationContainer = document.querySelector('.pagination');
 
   if (!paginationContainer) {
@@ -98,4 +103,11 @@ export function renderPagination(currentPage, totalPages, onPageChange, contentB
       }
     }
   };
+}
+
+export function clearPagination() {
+  const paginationContainer = document.querySelector('.pagination');
+  if (paginationContainer) {
+    paginationContainer.remove();
+  }
 }

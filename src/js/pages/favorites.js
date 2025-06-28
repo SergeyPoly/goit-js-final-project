@@ -1,6 +1,6 @@
 import { EXERCISES_PAGE_SIZE } from '../constants';
 import { renderExercisesList } from '../renderers/exercises-list';
-import { renderPagination } from '../renderers/pagination';
+import { clearPagination, renderPagination } from '../renderers/pagination';
 import { getStoredExercises } from '../services/storage';
 import { loadHeader } from '../services/header.js';
 import { renderQuote } from '../renderers/quote.js';
@@ -40,6 +40,8 @@ function renderFavoritesList() {
 
   if (totalPages > 1) {
     renderPagination(page, totalPages, handlePageChange);
+  } else {
+    clearPagination();
   }
 }
 
