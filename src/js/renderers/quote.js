@@ -12,13 +12,10 @@ function getTodayDay() {
 }
 
 function compareDates(date1, date2) {
-  if (!date1 || !date2)
-    return false;
-  return (
+  return !!date1 && !!date2 &&
     date1.day === date2.day &&
     date1.month === date2.month &&
-    date1.year === date2.year
-  );
+    date1.year === date2.year;
 }
 
 function renderDOM({ author, quote }) {
@@ -28,19 +25,15 @@ function renderDOM({ author, quote }) {
   `);
 }
 
-
-
 export async function renderQuote() {
-  const storedDate = JSON.parse(localStorage.getItem("today-date"));
   const today = getTodayDay();
   const savedQuote = JSON.parse(localStorage.getItem("today-quote"));
 
-  if (compareDates(storedDate, today) && savedQuote) {
+  if (compareDates(savedQuote?.date, today) && savedQuote) {
     renderDOM(savedQuote);
   } else {
     const { author, quote } = await getQuote();
-    localStorage.setItem("today-date", JSON.stringify(today));
-    localStorage.setItem("today-quote", JSON.stringify({ author, quote }));
+    localStorage.setItem("today-quote", JSON.stringify({ author, quote, date: today }));
     renderDOM({ author, quote });
   }
 }

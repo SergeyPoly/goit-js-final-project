@@ -3,9 +3,8 @@ import { renderExercisesList } from '../renderers/exercises-list';
 import { renderPagination } from '../renderers/pagination';
 import { getStoredExercises } from '../services/storage';
 import { loadHeader } from '../services/header.js';
-import { getQuote } from '../services/api';
+import { renderQuote } from '../renderers/quote.js';
 
-const cardInfoElement = document.querySelector(".card-info-container");
 let page = 1;
 let favorites = getStoredExercises();
 
@@ -42,32 +41,6 @@ function renderFavoritesList() {
   if (totalPages > 1) {
     renderPagination(page, totalPages, handlePageChange);
   }
-}
-
-function compareDates(date1, date2) {
-  return (!date1 || !date2) ? false : date1.day === date2.day && date1.month === date2.month && date1.year === date2.year;
-}
-
-function renderQuoteToDOM({author, quote}) {
-    cardInfoElement.insertAdjacentHTML('beforeend', 
-      `<p class="card-description">${quote}</p>
-       <p class="card-author">${author}</p>`);
-}
-
-export async function renderQuote() {
-  const savedDate = JSON.parse(localStorage.getItem("favourites-today-date"));
-  const today = new Date();
-  const savedQuote = JSON.parse(localStorage.getItem("favourites-today-quote"));
-
-  if (savedQuote && compareDates(savedDate, today)) {
-    renderQuoteToDOM(savedQuote);
-  } else {
-    const {author, quote} = await getQuote();
-    localStorage.setItem("favourites-today-date", JSON.stringify(today));
-    localStorage.setItem("favourites-today-quote", JSON.stringify({author, quote}));
-    renderQuoteToDOM(savedQuote);
-  }
-
 }
 
 document.addEventListener('DOMContentLoaded', () => {
