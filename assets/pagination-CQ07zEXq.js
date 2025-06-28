@@ -160,4 +160,4 @@ import{i as N,a as A}from"./vendor-D9ezOI0e.js";(function(){const t=document.cre
         ${x("right",!0,t,r)}
       </div>
     `}o.insertAdjacentHTML("beforeend",a),o.onclick=r=>{const L=r.target.nodeName==="BUTTON"?r.target:r.target.closest(".pagination button");if(L){const S=parseInt(L.dataset.page,10);S!==e&&s(S)}}}export{F as E,ie as S,le as a,pe as b,ce as c,$ as d,re as g,ue as l,de as p,me as r};
-//# sourceMappingURL=pagination-DIsEnIQi.js.map
+//# sourceMappingURL=pagination-CQ07zEXq.js.map
