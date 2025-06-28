@@ -1,8 +1,9 @@
+import { EXERCISE_ACTIONS } from '../constants.js';
 import {
-  storeExercise,
-  removeStoredExercise,
-  getStoredExercises,
-} from '../services/storage';
+  handleAddFavorite,
+  handleRemoveFavorite,
+} from '../handlers/exercise-card.js';
+import { getStoredExercises } from '../services/storage';
 import { getIconPath } from '../utils/get-icon-path';
 import { createRatingModal } from './rating-modal.js';
 
@@ -36,7 +37,11 @@ function renderFavBtn(exercise) {
     <button
       type="button"
       class="exercise-modal__fav-btn"
-      data-action="${isStored ? 'remove' : 'add'}"
+      data-action="${
+        isStored
+          ? EXERCISE_ACTIONS.REMOVE_FAVORITE
+          : EXERCISE_ACTIONS.ADD_FAVORITE
+      }"
     >
       ${isStored ? 'Remove from favorites' : 'Add to favorites'}
       <svg class="exercise-modal__fav-icon" width="18" height="18">
@@ -78,20 +83,20 @@ export function createExerciseModal(data) {
           </div>
           <ul class="exercise-modal__info-list">
             <li class="exercise-modal__info-item"><p class="exercise-modal__label">Target</p><p class="exercise-modal__value">${capitalize(
-    data.target
-  )}</p></li>
+              data.target
+            )}</p></li>
             <li class="exercise-modal__info-item"><p class="exercise-modal__label">Body Part</p><p class="exercise-modal__value">${capitalize(
-    data.bodyPart
-  )}</p></li>
+              data.bodyPart
+            )}</p></li>
             <li class="exercise-modal__info-item"><p class="exercise-modal__label">Equipment</p><p class="exercise-modal__value">${capitalize(
-    data.equipment
-  )}</p></li>
+              data.equipment
+            )}</p></li>
             <li class="exercise-modal__info-item"><p class="exercise-modal__label">Popular</p><p class="exercise-modal__value">${
-    data.popularity
-  }</p></li>
+              data.popularity
+            }</p></li>
             <li class="exercise-modal__info-item"><p class="exercise-modal__label">Burned calories</p><p class="exercise-modal__value">${
-    data.burnedCalories
-  }/${data.time} min</p></li>
+              data.burnedCalories
+            }/${data.time} min</p></li>
           </ul>
           <p class="exercise-modal__description">${data.description}</p>
         </div>
@@ -99,7 +104,9 @@ export function createExerciseModal(data) {
 
         <div class="exercise-modal__buttons">
             ${renderFavBtn(data)}
-            <button type="button" class="exercise-modal__rating-btn" data-action="rate">Give a rating</button>
+            <button type="button" class="exercise-modal__rating-btn" data-action="${
+              EXERCISE_ACTIONS.RATE
+            }">Give a rating</button>
         </div>
         </div>
       </div>
@@ -154,17 +161,16 @@ export function createExerciseModal(data) {
 
       const action = btn.dataset.action;
       switch (action) {
-        case 'add':
-          storeExercise(data);
+        case EXERCISE_ACTIONS.ADD_FAVORITE:
+          handleAddFavorite(data);
           break;
-        case 'remove':
-          removeStoredExercise(data._id);
+        case EXERCISE_ACTIONS.REMOVE_FAVORITE:
+          handleRemoveFavorite(data._id);
           break;
-        case 'rate':
+        case EXERCISE_ACTIONS.RATE:
           closeModal();
           createRatingModal(data._id);
           break;
-        default:
       }
 
       btn.outerHTML = renderFavBtn(data);

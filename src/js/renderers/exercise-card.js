@@ -1,4 +1,4 @@
-import { EXERCISE_CARD_ACTIONS, EXERCISE_CARD_CLASS_NAME } from '../constants';
+import { EXERCISE_ACTIONS, EXERCISE_CARD_CLASS_NAME } from '../constants';
 import { getIconPath } from '../utils/get-icon-path';
 
 export function renderExerciseCard(exercise, isFavorite) {
@@ -10,14 +10,14 @@ export function renderExerciseCard(exercise, isFavorite) {
           ${
             isFavorite
               ? `<button data-action="${
-                  EXERCISE_CARD_ACTIONS.REMOVE_FAVORITE
+                  EXERCISE_ACTIONS.REMOVE_FAVORITE
                 }" class="card-icon-button remove-favorite-button">
                   <svg class="remove-favorite-icon">
                     <use href="${getIconPath('trash-icon')}"></use>
                   </svg>
                 </button>`
               : `<button data-action="${
-                  EXERCISE_CARD_ACTIONS.RATE
+                  EXERCISE_ACTIONS.RATE
                 }" class="card-icon-button rating-button">
                   ${exercise.rating.toFixed(1)}
                   <svg class="rating-icon">
@@ -26,9 +26,7 @@ export function renderExerciseCard(exercise, isFavorite) {
                 </button>`
           }
         </div>
-        <button data-action="${
-          EXERCISE_CARD_ACTIONS.START
-        }" class="start-button">
+        <button data-action="${EXERCISE_ACTIONS.START}" class="start-button">
           Start
           <svg class="arrow-icon" width="13" height="13">
             <use href="${getIconPath('arrow-icon')}"></use>
@@ -59,12 +57,4 @@ export function renderExerciseCard(exercise, isFavorite) {
       </div>
     </div>
   `;
-}
-export function removeExerciseCard(container, exerciseId) {
-  const exerciseCard = container.querySelector(
-    `.${EXERCISE_CARD_CLASS_NAME}[data-id="${exerciseId}"]`
-  );
-  if (exerciseCard) {
-    exerciseCard.remove();
-  }
 }
