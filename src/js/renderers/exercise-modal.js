@@ -4,6 +4,7 @@ import {
   getStoredExercises,
 } from '../services/storage';
 import { getIconPath } from '../utils/get-icon-path';
+import { createRatingModal } from './rating-modal.js';
 
 const getScrollbarWidth = () =>
   window.innerWidth - document.documentElement.clientWidth;
@@ -98,7 +99,8 @@ export function createExerciseModal(data) {
 
         <div class="exercise-modal__buttons">
             ${renderFavBtn(data)}
-            <button type="button" class="exercise-modal__rating-btn">Give a rating</button>
+            <button type="button" class="exercise-modal__rating-btn" data-action="rate">Give a rating</button>
+        </div>
         </div>
       </div>
     </div>
@@ -151,10 +153,18 @@ export function createExerciseModal(data) {
       if (!btn) return;
 
       const action = btn.dataset.action;
-      if (action === 'add') {
-        storeExercise(data);
-      } else if (action === 'remove') {
-        removeStoredExercise(data._id);
+      switch (action) {
+        case 'add':
+          storeExercise(data);
+          break;
+        case 'remove':
+          removeStoredExercise(data._id);
+          break;
+        case 'rate':
+          closeModal();
+          createRatingModal(data._id);
+          break;
+        default:
       }
 
       btn.outerHTML = renderFavBtn(data);
