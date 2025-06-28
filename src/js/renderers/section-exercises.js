@@ -2,7 +2,7 @@ import { getFilters, getExercises } from '../services/api';
 import { renderFiltersList } from './filters-list'
 import { toLowerCaseFilter } from './filter-card'
 import { renderExercisesList } from './exercises-list';
-import { renderPagination } from './pagination';
+import { clearPagination, renderPagination } from './pagination';
 import { SECTION_EXERCISE_CONFIG } from '../constants';
 import { urlParamsUtils } from '../utils/url-params';
 import { debounceUtils } from '../utils/debounce';
@@ -64,7 +64,7 @@ const uiUtils = {
   moveFilterUnderline: (targetBtn) => {
     const filterBlockRect = filterBlock.getBoundingClientRect();
     const btnRect = targetBtn.getBoundingClientRect();
-    
+
     const left = btnRect.left - filterBlockRect.left;
     const width = btnRect.width;
 
@@ -82,8 +82,8 @@ const uiUtils = {
 const responsiveUtils = {
   calculateLimit: (windowWidth, isExercisesList = false) => {
     if (isExercisesList) return SECTION_EXERCISE_CONFIG.LIMITS.EXERCISES_LIST;
-    return windowWidth >= SECTION_EXERCISE_CONFIG.BREAKPOINTS.DESKTOP_LARGE 
-      ? SECTION_EXERCISE_CONFIG.LIMITS.DESKTOP_LARGE 
+    return windowWidth >= SECTION_EXERCISE_CONFIG.BREAKPOINTS.DESKTOP_LARGE
+      ? SECTION_EXERCISE_CONFIG.LIMITS.DESKTOP_LARGE
       : SECTION_EXERCISE_CONFIG.LIMITS.DESKTOP;
   },
 
@@ -134,13 +134,6 @@ const responsiveUtils = {
 };
 
 // Core Functions
-const clearPagination = () => {
-  const paginationContainer = document.querySelector('.pagination');
-  if (paginationContainer) {
-    paginationContainer.remove();
-  }
-}
-
 const scrollToTopOfContent = () => {
   exercisesContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
 };
@@ -170,9 +163,9 @@ const renderExercises = async (page) => {
   state.currentPage = page ?? state.currentPage;
 
   const { results, totalPages: totalPagesValue } = await getExercises(
-    {[toLowerCaseFilter(state.currentFilter)]: state.exerciseName}, 
+    {[toLowerCaseFilter(state.currentFilter)]: state.exerciseName},
     state.exerciseSearch,
-    state.currentPage, 
+    state.currentPage,
     state.currentLimit
   );
 
@@ -180,7 +173,7 @@ const renderExercises = async (page) => {
   renderExercisesList(results, 'Oops! No exercises found');
 
   exercisesLoader.classList.add('visually-hidden');
-  
+
   state.totalPages = totalPagesValue;
 
   if (state.totalPages > 1) {
@@ -197,7 +190,7 @@ const renderExercises = async (page) => {
 const handleFilterClick = async (e, btn) => {
   e.preventDefault();
   uiUtils.setActiveFilter(btn);
-  
+
   state.currentFilter = btn.textContent;
 
   if (state.exerciseName) {
@@ -218,7 +211,7 @@ const handleFilterClick = async (e, btn) => {
 
 const handleExerciseClick = (e) => {
   const target = e.target.closest('.exercises-content__item');
-  
+
   if (target) {
     scrollToTopOfContent();
     state.exerciseName = target.dataset.exercise;
@@ -236,7 +229,7 @@ const handleExerciseClick = (e) => {
     state.currentLimit = SECTION_EXERCISE_CONFIG.LIMITS.EXERCISES_LIST;
 
     clearPagination();
-    
+
     renderExercises();
   }
 };
@@ -313,7 +306,7 @@ exercisesSearchInput.addEventListener('input', e => {
   if (state.exerciseName) {
     params.set(toLowerCaseFilter(state.currentFilter), state.exerciseName);
   }
-  
+
   if (state.exerciseSearch) {
     params.set('keyword', state.exerciseSearch);
   }
@@ -342,7 +335,7 @@ const onLoad = () => {
   } else {
     clearInputBtn.classList.add('visually-hidden');
   }
-  
+
   let currentActiveBtn = null;
 
   for (const btn of filterBtns) {
@@ -350,7 +343,7 @@ const onLoad = () => {
       currentActiveBtn = btn;
       btn.classList.add('active');
       break;
-    } 
+    }
   }
 
   if (currentActiveBtn) uiUtils.moveFilterUnderline(currentActiveBtn);
@@ -363,7 +356,7 @@ const onLoad = () => {
     renderExercises();
     return;
   }
-  
+
   renderFilters();
 }
 
