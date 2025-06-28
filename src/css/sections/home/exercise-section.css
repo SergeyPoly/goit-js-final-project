@@ -11,6 +11,10 @@
     padding: 4rem 0 8.25rem;
   }
 
+  .container {
+    scroll-margin-top: 1rem;
+  }
+
   .exercises-header {
     margin-bottom: 1.75rem;
     display: flex;
@@ -184,7 +188,7 @@
   }
 
   .exercises-wrapper {
-    overflow: hidden;
+    /* overflow: hidden; */
     width: 100%;
     display: grid;
     flex-direction: column;
@@ -202,6 +206,10 @@
 
     .exercises-content-wrapper {
       position: relative;
+
+      transition: height 0.3s cubic-bezier(.4,0,.2,1);
+      will-change: height;
+      overflow: visible;
 
       @media screen and (min-width: 1440px) {
         order: 2;
@@ -300,11 +308,21 @@
         }
       }
 
+      .no-exercises-message {
+        grid-column: 1 / -1;
+        grid-row: 1 / -1;
+        width: 100%;
+        max-width: unset;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
       .exercises-loader {
         position: sticky;
         top: 50%;
         transform: translateY(-50%);
-        margin: 2rem auto;
+        margin: 8rem auto;
 
         &.visually-hidden {
           display: none;

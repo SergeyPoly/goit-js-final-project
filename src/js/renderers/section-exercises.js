@@ -4,22 +4,29 @@ import { toLowerCaseFilter } from './filter-card'
 import { renderExercisesList } from './exercises-list';
 import { renderPagination } from './pagination';
 import { SECTION_EXERCISE_CONFIG } from '../constants';
+import { urlParamsUtils } from '../utils/url-params';
+import { debounceUtils } from '../utils/debounce';
 
-// DOM Elements
-const elements = {
-  exercisesContent: document.querySelector('.exercises-content'),
-  exercisesList: document.querySelector('.exercises-list-wrapper'),
-  filterBlock: document.querySelector('.exercises-filter__filters'),
-  filterBtns: document.querySelectorAll('.filter-btn'),
-  filterUnderline: document.querySelector('.filter-underline'),
-  exercisesTitle: document.querySelector('.exercises-header-wrapper .section-title'),
-  breadcrumbs: document.querySelector('.exercises-header__breadcrumbs'),
-  breadcrumbsText: document.querySelector('.breadcrumbs-exercises'),
-  exercisesSearch: document.querySelector('.exercises-filter__search'),
-  exercisesSearchInput: document.querySelector('.exercises-filter__search .search-input'),
-  exercisesLoader: document.querySelector('.exercises-loader'),
-  clearInputBtn: document.querySelector('.search-button.clear-icon'),
-};
+const exercisesContainer = document.querySelector('.exercises > div.container');
+const exercisesHeader = document.querySelector('.exercises-header');
+const exercisesHeaderWrapper = exercisesHeader.querySelector('.exercises-header-wrapper');
+const exercisesTitle = exercisesHeaderWrapper.querySelector('.section-title');
+const breadcrumbs = exercisesHeaderWrapper.querySelector('.exercises-header__breadcrumbs');
+const breadcrumbsText = breadcrumbs.querySelector('.breadcrumbs-exercises');
+
+const exercisesFilter = document.querySelector('.exercises-filter');
+const exercisesSearch = exercisesFilter.querySelector('.exercises-filter__search');
+const exercisesSearchInput = exercisesSearch.querySelector('.search-input');
+const clearInputBtn = exercisesSearch.querySelector('.search-button.clear-icon');
+
+const filterBlock = exercisesFilter.querySelector('.exercises-filter__filters');
+const filterBtns = filterBlock.querySelectorAll('.filter-btn');
+const filterUnderline = filterBlock.querySelector('.filter-underline');
+
+const exercisesContentWrapper = document.querySelector('.exercises-content-wrapper');
+const exercisesContent = exercisesContentWrapper.querySelector('.exercises-content');
+const exercisesList = exercisesContentWrapper.querySelector('.exercises-list-wrapper');
+const exercisesLoader = exercisesContentWrapper.querySelector('.exercises-loader');
 
 // Application State
 const state = {
@@ -31,55 +38,41 @@ const state = {
   exerciseSearch: '',
 };
 
-// Utility Functions
-const urlUtils = {
-  setNewParams: (params) => {
-    const newUrl = `${window.location.pathname}?${params.toString()}`;
-    history.pushState(null, '', newUrl);
-  },
-
-  getParams: () => new URLSearchParams(window.location.search),
-
-  getExerciseNameFromParams: (params) => {
-    return params.get('bodypart') ?? params.get('muscles') ?? params.get('equipment') ?? null;
-  }
-};
-
 const uiUtils = {
   showExercisesList: () => {
-    elements.breadcrumbs.classList.remove('visually-hidden');
-    elements.exercisesSearch.classList.remove('visually-hidden');
-    elements.exercisesTitle.classList.add('cursor-pointer');
+    breadcrumbs.classList.remove('visually-hidden');
+    exercisesSearch.classList.remove('visually-hidden');
+    exercisesTitle.classList.add('cursor-pointer');
   },
 
   hideExercisesList: () => {
-    elements.breadcrumbs.classList.add('visually-hidden');
-    elements.exercisesSearch.classList.add('visually-hidden');
-    elements.exercisesTitle.classList.remove('cursor-pointer');
+    breadcrumbs.classList.add('visually-hidden');
+    exercisesSearch.classList.add('visually-hidden');
+    exercisesTitle.classList.remove('cursor-pointer');
   },
 
   updateBreadcrumbs: (text) => {
-    elements.breadcrumbsText.textContent = text;
+    breadcrumbsText.textContent = text;
   },
 
   clearContent: () => {
-    elements.exercisesContent.innerHTML = '';
-    elements.exercisesList.innerHTML = '';
+    exercisesContent.innerHTML = '';
+    exercisesList.innerHTML = '';
   },
 
   moveFilterUnderline: (targetBtn) => {
-    const filterBlockRect = elements.filterBlock.getBoundingClientRect();
+    const filterBlockRect = filterBlock.getBoundingClientRect();
     const btnRect = targetBtn.getBoundingClientRect();
     
     const left = btnRect.left - filterBlockRect.left;
     const width = btnRect.width;
 
-    elements.filterUnderline.style.left = `${left}px`;
-    elements.filterUnderline.style.width = `${width}px`;
+    filterUnderline.style.left = `${left}px`;
+    filterUnderline.style.width = `${width}px`;
   },
 
   setActiveFilter: (activeBtn) => {
-    elements.filterBtns.forEach(btn => btn.classList.remove('active'));
+    filterBtns.forEach(btn => btn.classList.remove('active'));
     activeBtn.classList.add('active');
     uiUtils.moveFilterUnderline(activeBtn);
   }
@@ -118,63 +111,79 @@ const clearPagination = () => {
   }
 }
 
+// Prevent heights from collapsing during animation
+const animateHeightChange = () => {
+  if (!exercisesContentWrapper) return;
+
+  const startHeight = exercisesContentWrapper.offsetHeight + 'px';
+  exercisesContentWrapper.style.height = startHeight;
+
+  requestAnimationFrame(() => {
+    exercisesContentWrapper.style.height = 'auto';
+    const endHeight = exercisesContentWrapper.offsetHeight + 'px';
+    exercisesContentWrapper.style.height = startHeight;
+
+    requestAnimationFrame(() => {
+      exercisesContentWrapper.style.height = endHeight;
+
+      exercisesContentWrapper.addEventListener('transitionend', function handler() {
+        exercisesContentWrapper.style.height = 'auto';
+        exercisesContentWrapper.removeEventListener('transitionend', handler);
+      });
+    });
+  });
+}
+
+const scrollToTopOfContent = () => {
+  exercisesContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
+
 const renderFilters = async (page) => {
-  try {
-    elements.exercisesLoader.classList.remove('visually-hidden');
-    state.currentPage = page ? page : state.currentPage;
+  state.currentPage = page ?? state.currentPage;
 
-    const { results, totalPages: totalPagesValue } = await getFilters(state.currentFilter, state.currentPage, state.currentLimit);
+  const { results, totalPages: totalPagesValue } = await getFilters(state.currentFilter, state.currentPage, state.currentLimit);
 
-    const filtersList = renderFiltersList(results, 'Oops! No exercises found');
+  const filtersList = renderFiltersList(results, 'Oops! No exercises found');
 
-    elements.exercisesLoader.classList.add('visually-hidden');
-    elements.exercisesContent.innerHTML = filtersList;
-    state.totalPages = totalPagesValue;
+  exercisesLoader.classList.add('visually-hidden');
+  exercisesContent.innerHTML = filtersList;
+  state.totalPages = totalPagesValue;
 
-    if (state.totalPages > 1) {
-      renderPagination(state.currentPage, state.totalPages, newPage => {
-        renderFilters(newPage);
-      }, '.exercises-content-wrapper');
-    } else {
-      clearPagination();
-    }
-  } catch (error) {
-    console.error('Error rendering filters:', error);
-    elements.exercisesLoader.classList.add('visually-hidden');
-    elements.exercisesContent.innerHTML = '<p class="content-error">Error loading filters.<br>Please try again.</p>';
+  if (state.totalPages > 1) {
+    renderPagination(state.currentPage, state.totalPages, newPage => {
+      renderFilters(newPage);
+    }, '.exercises-content-wrapper');
+  } else {
+    clearPagination();
   }
+  
+  scrollToTopOfContent();
 }
 
 const renderExercises = async (page) => {
-  try {
-    elements.exercisesLoader.classList.remove('visually-hidden');
-    state.currentPage = page ? page : state.currentPage;
+  state.currentPage = page ?? state.currentPage;
 
-    const { results, totalPages: totalPagesValue } = await getExercises(
-      {[toLowerCaseFilter(state.currentFilter)]: state.exerciseName}, 
-      state.exerciseSearch,
-      state.currentPage, 
-      state.currentLimit
-    );
+  const { results, totalPages: totalPagesValue } = await getExercises(
+    {[toLowerCaseFilter(state.currentFilter)]: state.exerciseName}, 
+    state.exerciseSearch,
+    state.currentPage, 
+    state.currentLimit
+  );
 
+  renderExercisesList(results, 'Oops! No exercises found');
 
-    renderExercisesList(results, 'Oops! No exercises found');
+  exercisesLoader.classList.add('visually-hidden');
+  state.totalPages = totalPagesValue;
 
-    elements.exercisesLoader.classList.add('visually-hidden');
-    state.totalPages = totalPagesValue;
-
-    if (state.totalPages > 1) {
-      renderPagination(state.currentPage, state.totalPages, newPage => {
-        renderExercises(newPage);
-      }, '.exercises-content-wrapper');
-    } else {
-      clearPagination();
-    }
-  } catch (error) {
-    console.error('Error rendering exercises:', error);
-    elements.exercisesLoader.classList.add('visually-hidden');
-    elements.exercisesList.innerHTML = '<p class="content-error">Error loading exercises.<br>Please try again.</p>';
+  if (state.totalPages > 1) {
+    renderPagination(state.currentPage, state.totalPages, newPage => {
+      renderExercises(newPage);
+    }, '.exercises-content-wrapper');
+  } else {
+    clearPagination();
   }
+
+  scrollToTopOfContent();
 }
 
 // Event Handlers
@@ -184,20 +193,23 @@ const handleFilterClick = async (e, btn) => {
   
   state.currentFilter = btn.textContent;
 
-  handleClearSearch();
-
   if (state.exerciseName) {
+    exercisesLoader.classList.remove('visually-hidden');
+    clearPagination();
+
     uiUtils.hideExercisesList();
     state.exerciseName = null;
     uiUtils.clearContent();
   }
+
+  handleClearSearch();
 
   state.currentPage = 1;
 
   await renderFilters();
 };
 
-const handleExerciseClick = async (e) => {
+const handleExerciseClick = (e) => {
   const target = e.target.closest('.exercises-content__item');
   
   if (target) {
@@ -207,7 +219,7 @@ const handleExerciseClick = async (e) => {
     const params = new URLSearchParams();
     params.set('filter', state.currentFilter);
     params.set(filter, state.exerciseName);
-    urlUtils.setNewParams(params);
+    urlParamsUtils.setNewParams(params);
 
     uiUtils.updateBreadcrumbs(state.exerciseName);
     uiUtils.showExercisesList();
@@ -215,12 +227,16 @@ const handleExerciseClick = async (e) => {
     state.currentPage = 1;
     state.currentLimit = SECTION_EXERCISE_CONFIG.LIMITS.EXERCISES_LIST;
 
+    clearPagination();
+    exercisesLoader.classList.remove('visually-hidden');
+
     uiUtils.clearContent();
-    await renderExercises();
+    renderExercises();
+    animateHeightChange();
   }
 };
 
-const handleBackToFilters = async () => {
+const handleBackToFilters = () => {
   uiUtils.hideExercisesList();
 
   handleClearSearch();
@@ -230,7 +246,8 @@ const handleBackToFilters = async () => {
   responsiveUtils.updateLimit();
 
   uiUtils.clearContent();
-  await renderFilters();
+  renderFilters();
+  animateHeightChange();
 };
 
 const handleWindowResize = () => {
@@ -238,7 +255,7 @@ const handleWindowResize = () => {
 };
 
 const handleClearSearch = () => {
-  elements.exercisesSearchInput.value = '';
+  exercisesSearchInput.value = '';
   state.exerciseSearch = '';
 
   const params = new URLSearchParams();
@@ -246,50 +263,30 @@ const handleClearSearch = () => {
   if (state.exerciseName) {
     params.set(toLowerCaseFilter(state.currentFilter), state.exerciseName);
   }
-  urlUtils.setNewParams(params);
+  urlParamsUtils.setNewParams(params);
 
-  elements.clearInputBtn.classList.add('visually-hidden');
+  clearInputBtn.classList.add('visually-hidden');
 }
 
 // Event Listeners
 window.addEventListener('resize', handleWindowResize);
 
 // Filter buttons click event
-elements.filterBtns.forEach(btn => {
+filterBtns.forEach(btn => {
   btn.addEventListener('click', e => handleFilterClick(e, btn));
 });
 
 // Action to exercises list
-elements.exercisesContent.addEventListener('click', handleExerciseClick);
+exercisesContent.addEventListener('click', handleExerciseClick);
 
 // Back to filters list
-elements.exercisesTitle.addEventListener('click', handleBackToFilters);
+exercisesTitle.addEventListener('click', handleBackToFilters);
 
 // Clear search input
-elements.clearInputBtn.addEventListener('click', () => {
+clearInputBtn.addEventListener('click', () => {
   handleClearSearch();
   renderExercises();
 });
-
-// Debounce utility for search input
-const debounceUtils = {
-  timers: new Map(),
-  
-  debounce: (func, delay, key = 'default') => {
-    return (...args) => {
-      if (debounceUtils.timers.has(key)) {
-        clearTimeout(debounceUtils.timers.get(key));
-      }
-      
-      const timerId = setTimeout(() => {
-        func(...args);
-        debounceUtils.timers.delete(key);
-      }, delay);
-      
-      debounceUtils.timers.set(key, timerId);
-    };
-  }
-};
 
 // Debounced search function
 const debouncedSearch = debounceUtils.debounce(async () => {
@@ -301,7 +298,7 @@ const debouncedSearch = debounceUtils.debounce(async () => {
 }, 500, 'search');
 
 // Search input event
-elements.exercisesSearchInput.addEventListener('input', e => {
+exercisesSearchInput.addEventListener('input', e => {
   state.exerciseSearch = e.target.value.trim().toLowerCase();
 
   const params = new URLSearchParams();
@@ -315,34 +312,34 @@ elements.exercisesSearchInput.addEventListener('input', e => {
     params.set('keyword', state.exerciseSearch);
   }
 
-  urlUtils.setNewParams(params);
+  urlParamsUtils.setNewParams(params);
 
   if (state.exerciseSearch === '') {
-    elements.clearInputBtn.classList.add('visually-hidden');
+    clearInputBtn.classList.add('visually-hidden');
   } else {
-    elements.clearInputBtn.classList.remove('visually-hidden');
+    clearInputBtn.classList.remove('visually-hidden');
   }
 
   debouncedSearch();
 });
 
 const onLoad = () => {
-  const params = urlUtils.getParams();
+  const params = urlParamsUtils.getParams();
   state.currentFilter = params.get('filter') ?? SECTION_EXERCISE_CONFIG.DEFAULT_FILTER;
-  state.exerciseName = urlUtils.getExerciseNameFromParams(params);
+  state.exerciseName = urlParamsUtils.getExerciseNameFromParams(params);
   state.exerciseSearch = params.get('keyword') ?? '';
 
-  elements.exercisesSearchInput.value = state.exerciseSearch;
+  exercisesSearchInput.value = state.exerciseSearch;
 
   if (state.exerciseSearch) {
-    elements.clearInputBtn.classList.remove('visually-hidden');
+    clearInputBtn.classList.remove('visually-hidden');
   } else {
-    elements.clearInputBtn.classList.add('visually-hidden');
+    clearInputBtn.classList.add('visually-hidden');
   }
   
   let currentActiveBtn = null;
 
-  for (const btn of elements.filterBtns) {
+  for (const btn of filterBtns) {
     if (btn.textContent.trim() === state.currentFilter) {
       currentActiveBtn = btn;
       btn.classList.add('active');
