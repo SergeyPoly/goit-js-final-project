@@ -127,10 +127,14 @@
   gap: 16px;
 }
 
+.exercise-name-container .exercise-icon {
+  min-width: fit-content;
+}
+
 .exercise-name {
   font-weight: 400;
   font-size: 20px;
-  line-height: 1;
+  line-height: 1.2;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;

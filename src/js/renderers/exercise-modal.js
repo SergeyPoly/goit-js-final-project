@@ -59,7 +59,9 @@ export function createExerciseModal(data) {
             <use href="${getIconPath('close-icon')}"></use>
           </svg>
         </button>
-        <div class="exercise-modal__image-wrapper">
+
+        <div class="exercise-modal__content">
+      <div class="exercise-modal__image-wrapper">
           <img src="${data.gifUrl}" alt="${
     data.name
   }"class="exercise-modal__image" />
@@ -76,26 +78,29 @@ export function createExerciseModal(data) {
           </div>
           <ul class="exercise-modal__info-list">
             <li class="exercise-modal__info-item"><p class="exercise-modal__label">Target</p><p class="exercise-modal__value">${capitalize(
-              data.target
-            )}</p></li>
+    data.target
+  )}</p></li>
             <li class="exercise-modal__info-item"><p class="exercise-modal__label">Body Part</p><p class="exercise-modal__value">${capitalize(
-              data.bodyPart
-            )}</p></li>
+    data.bodyPart
+  )}</p></li>
             <li class="exercise-modal__info-item"><p class="exercise-modal__label">Equipment</p><p class="exercise-modal__value">${capitalize(
-              data.equipment
-            )}</p></li>
+    data.equipment
+  )}</p></li>
             <li class="exercise-modal__info-item"><p class="exercise-modal__label">Popular</p><p class="exercise-modal__value">${
-              data.popularity
-            }</p></li>
+    data.popularity
+  }</p></li>
             <li class="exercise-modal__info-item"><p class="exercise-modal__label">Burned calories</p><p class="exercise-modal__value">${
-              data.burnedCalories
-            }/${data.time} min</p></li>
+    data.burnedCalories
+  }/${data.time} min</p></li>
           </ul>
           <p class="exercise-modal__description">${data.description}</p>
-          <div class="exercise-modal__buttons">
+        </div>
+        </div>
+
+        <div class="exercise-modal__buttons">
             ${renderFavBtn(data)}
             <button type="button" class="exercise-modal__rating-btn" data-action="rate">Give a rating</button>
-          </div>
+        </div>
         </div>
       </div>
     </div>
