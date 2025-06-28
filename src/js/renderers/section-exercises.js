@@ -158,6 +158,7 @@ const renderFilters = async (page) => {
 
   if (state.totalPages > 1) {
     renderPagination(state.currentPage, state.totalPages, newPage => {
+      scrollToTopOfContent();
       renderFilters(newPage);
     }, '.exercises-content-wrapper');
   } else {
@@ -184,6 +185,7 @@ const renderExercises = async (page) => {
 
   if (state.totalPages > 1) {
     renderPagination(state.currentPage, state.totalPages, newPage => {
+      scrollToTopOfContent();
       renderExercises(newPage);
     }, '.exercises-content-wrapper');
   } else {
