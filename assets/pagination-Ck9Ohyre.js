@@ -110,4 +110,4 @@ import{i as I,a as T}from"./vendor-D9ezOI0e.js";(function(){const t=document.cre
         ${h("right",!0,t,r)}
       </div>
     `}o.insertAdjacentHTML("beforeend",n),o.onclick=r=>{const y=r.target.nodeName==="BUTTON"?r.target:r.target.closest(".pagination button");if(y){const $=parseInt(y.dataset.page,10);$!==e&&s($)}}}export{B as E,Z as S,se as a,ae as b,te as c,E as d,ee as g,ne as l,oe as p,ie as r};
-//# sourceMappingURL=pagination-DUKDhYqm.js.map
+//# sourceMappingURL=pagination-Ck9Ohyre.js.map
