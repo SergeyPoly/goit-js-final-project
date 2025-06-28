@@ -15,7 +15,8 @@ export const SECTION_EXERCISE_CONFIG = Object.freeze({
     EXERCISES_LIST: 10
   },
   BREAKPOINTS: {
-    DESKTOP_LARGE: 1440
+    DESKTOP_LARGE: 1440,
+    TABLET: 768,
   },
   DEFAULT_FILTER: 'Muscles'
 });

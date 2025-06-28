@@ -70,6 +70,7 @@
     height: 550px;
     background-image: url('../../../img/hero-main-tablet.jpg');
     margin-bottom: 16px;
+    border-radius: 60px;
   }
 
   @media only screen and (min-width: 768px) and (min-resolution: 192dpi) {

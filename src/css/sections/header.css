@@ -87,7 +87,6 @@
 
 .social-link:hover .social-logo-icon {
   fill: var(--primary);
-  background-color: var(--secondary);
 }
 
 @media (min-width: 768px) {
@@ -106,12 +105,5 @@
 
   .nav-social {
     display: flex;
-  }
-}
-
-@media (min-width: 1440px) {
-  .header-container {
-    padding-top: 28px;
-    padding-bottom: 28px;
   }
 }

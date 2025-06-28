@@ -30,6 +30,7 @@ const exercisesLoader = exercisesContentWrapper.querySelector('.exercises-loader
 
 // Application State
 const state = {
+  windowView: null,
   currentFilter: null,
   currentPage: 1,
   currentLimit: 9,
@@ -75,7 +76,7 @@ const uiUtils = {
     filterBtns.forEach(btn => btn.classList.remove('active'));
     activeBtn.classList.add('active');
     uiUtils.moveFilterUnderline(activeBtn);
-  }
+  },
 };
 
 const responsiveUtils = {
@@ -100,6 +101,35 @@ const responsiveUtils = {
       return true;
     }
     return false;
+  },
+
+  currentWindowView: (windowWidth = window.innerWidth) => {
+    const { DESKTOP_LARGE, TABLET } = SECTION_EXERCISE_CONFIG.BREAKPOINTS;
+
+    let newView;
+    if (windowWidth >= DESKTOP_LARGE) {
+      newView = 'desktop';
+    } else if (windowWidth >= TABLET) {
+      newView = 'tablet';
+    } else {
+      newView = 'mobile';
+    }
+
+    return newView;
+  },
+
+  updateUnderlinePosition: () => {
+    const newView = responsiveUtils.currentWindowView();
+    if (newView === state.windowView) return;
+
+    state.windowView = newView;
+
+    setTimeout(() => {
+      const activeBtn = filterBlock.querySelector('.filter-btn.active');
+      if (activeBtn) {
+        uiUtils.moveFilterUnderline(activeBtn);
+      }
+    }, 50);
   }
 };
 
@@ -109,29 +139,6 @@ const clearPagination = () => {
   if (paginationContainer) {
     paginationContainer.remove();
   }
-}
-
-// Prevent heights from collapsing during animation
-const animateHeightChange = () => {
-  if (!exercisesContentWrapper) return;
-
-  const startHeight = exercisesContentWrapper.offsetHeight + 'px';
-  exercisesContentWrapper.style.height = startHeight;
-
-  requestAnimationFrame(() => {
-    exercisesContentWrapper.style.height = 'auto';
-    const endHeight = exercisesContentWrapper.offsetHeight + 'px';
-    exercisesContentWrapper.style.height = startHeight;
-
-    requestAnimationFrame(() => {
-      exercisesContentWrapper.style.height = endHeight;
-
-      exercisesContentWrapper.addEventListener('transitionend', function handler() {
-        exercisesContentWrapper.style.height = 'auto';
-        exercisesContentWrapper.removeEventListener('transitionend', handler);
-      });
-    });
-  });
 }
 
 const scrollToTopOfContent = () => {
@@ -156,8 +163,6 @@ const renderFilters = async (page) => {
   } else {
     clearPagination();
   }
-  
-  scrollToTopOfContent();
 }
 
 const renderExercises = async (page) => {
@@ -170,9 +175,11 @@ const renderExercises = async (page) => {
     state.currentLimit
   );
 
+  uiUtils.clearContent();
   renderExercisesList(results, 'Oops! No exercises found');
 
   exercisesLoader.classList.add('visually-hidden');
+  
   state.totalPages = totalPagesValue;
 
   if (state.totalPages > 1) {
@@ -182,8 +189,6 @@ const renderExercises = async (page) => {
   } else {
     clearPagination();
   }
-
-  scrollToTopOfContent();
 }
 
 // Event Handlers
@@ -213,6 +218,7 @@ const handleExerciseClick = (e) => {
   const target = e.target.closest('.exercises-content__item');
   
   if (target) {
+    scrollToTopOfContent();
     state.exerciseName = target.dataset.exercise;
     const filter = target.dataset.filter;
 
@@ -228,15 +234,13 @@ const handleExerciseClick = (e) => {
     state.currentLimit = SECTION_EXERCISE_CONFIG.LIMITS.EXERCISES_LIST;
 
     clearPagination();
-    exercisesLoader.classList.remove('visually-hidden');
-
-    uiUtils.clearContent();
+    
     renderExercises();
-    animateHeightChange();
   }
 };
 
 const handleBackToFilters = () => {
+  scrollToTopOfContent();
   uiUtils.hideExercisesList();
 
   handleClearSearch();
@@ -247,11 +251,11 @@ const handleBackToFilters = () => {
 
   uiUtils.clearContent();
   renderFilters();
-  animateHeightChange();
 };
 
 const handleWindowResize = () => {
   responsiveUtils.updateLimit();
+  responsiveUtils.updateUnderlinePosition();
 };
 
 const handleClearSearch = () => {
@@ -295,7 +299,7 @@ const debouncedSearch = debounceUtils.debounce(async () => {
     uiUtils.clearContent();
     await renderExercises();
   }
-}, 500, 'search');
+}, 750, 'search');
 
 // Search input event
 exercisesSearchInput.addEventListener('input', e => {
