@@ -9,7 +9,7 @@
 
   opacity: 0;
   pointer-events: none;
-  overflow-x: scroll;
+  overflow: hidden;
 
   transition: opacity var(--modal-transition),
     visibility var(--modal-transition);

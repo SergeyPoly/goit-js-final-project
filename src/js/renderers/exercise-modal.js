@@ -130,14 +130,18 @@ export function createExerciseModal(data) {
     backdrop.classList.add('is-open');
   }, 50);
 
-  const closeModal = () => {
+  const closeModal = (isClosing = true) => {
     backdrop.classList.remove('is-open');
-    setTimeout(() => {
-      document.body.classList.remove('modal-open');
-      document.documentElement.style.removeProperty('--scrollbar-width');
-      backdrop.remove();
-    }, 300);
     document.removeEventListener('keydown', escHandler);
+
+    if (isClosing) {
+      setTimeout(() => {
+        document.body.classList.remove('modal-open');
+        document.documentElement.style.removeProperty('--scrollbar-width');
+      }, 300);
+    }
+
+    backdrop.remove();
   };
 
   backdrop
@@ -168,7 +172,7 @@ export function createExerciseModal(data) {
           handleRemoveFavorite(data._id);
           break;
         case EXERCISE_ACTIONS.RATE:
-          closeModal();
+          closeModal(false);
           createRatingModal(data._id);
           break;
         default:

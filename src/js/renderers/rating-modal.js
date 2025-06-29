@@ -109,11 +109,7 @@ export function createRatingModal(exerciseId) {
 
   const closeModal = () => {
     backdrop.classList.remove('is-open');
-    setTimeout(() => {
-      document.body.classList.remove('modal-open');
-      document.documentElement.style.removeProperty('--scrollbar-width');
-      backdrop.remove();
-    }, 300);
+    backdrop.remove();
     document.removeEventListener('keydown', escHandler);
 
     handleStart(exerciseId)
