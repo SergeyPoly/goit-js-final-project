@@ -322,6 +322,10 @@ exercisesSearchInput.addEventListener('input', e => {
   debouncedSearch();
 });
 
+window.addEventListener('popstate', () => {
+  onLoad();
+});
+
 const onLoad = () => {
   const params = urlParamsUtils.getParams();
   state.currentFilter = params.get('filter') ?? SECTION_EXERCISE_CONFIG.DEFAULT_FILTER;
