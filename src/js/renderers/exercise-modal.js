@@ -171,6 +171,8 @@ export function createExerciseModal(data) {
           closeModal();
           createRatingModal(data._id);
           break;
+        default:
+          console.warn('Unknown action:', action);
       }
 
       btn.outerHTML = renderFavBtn(data);

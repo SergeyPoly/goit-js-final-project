@@ -2,6 +2,7 @@ import {
   patchRating,
 } from '../services/api';
 import { getIconPath } from '../utils/get-icon-path';
+import { handleStart } from '../handlers/exercise-card.js';
 
 const getScrollbarWidth = () =>
   window.innerWidth - document.documentElement.clientWidth;
@@ -62,7 +63,6 @@ function addRatingListener(backdrop) {
 }
 
 export function createRatingModal(exerciseId) {
-  let rating = 0;
   const modalHtml = `
     <div id="ratingModalBackdrop" class="exercise-modal__backdrop">
       <div class="exercise-modal rating-modal">
@@ -75,12 +75,12 @@ export function createRatingModal(exerciseId) {
           <div class="rating-modal__item-group rating-modal__rating-group">
             <p class="rating-modal__title">Rating</p>
             <div class="exercise-modal__title-block">
-              ${renderRating(rating)}
+              ${renderRating(0)}
             </div>
           </div>
           <div class="rating-modal__item-group">
-            <input id="email" class="footer-input" name="email" pattern="[^@]+@[^@]+" placeholder="Email" />
-            <textarea id="review" class="footer-input rating-modal__review-textarea" name="review" placeholder="Your comment"></textarea>
+            <input id="email" class="footer-input" name="email" pattern="^\\w+(\\.\\w+)?@[a-zA-Z_]+?\\.[a-zA-Z]{2,3}$" placeholder="Email" required />
+            <textarea id="review" class="footer-input rating-modal__review-textarea" name="review" placeholder="Your comment" required></textarea>
           </div>
           <div class="exercise-modal__buttons rating-modal__item-group">
             ${renderSendBtn()}
@@ -115,6 +115,8 @@ export function createRatingModal(exerciseId) {
       backdrop.remove();
     }, 300);
     document.removeEventListener('keydown', escHandler);
+
+    handleStart(exerciseId)
   };
 
   backdrop
@@ -132,19 +134,20 @@ export function createRatingModal(exerciseId) {
 
   backdrop
     .querySelector('.exercise-modal__buttons')
-    .addEventListener('click', e => {
+    .addEventListener('click', async (e) => {
       const btn = e.target.closest('[data-action]');
-      console.log('Button click', btn);
       if (!btn) return;
 
       const action = btn.dataset.action;
       if (action === 'send') {
-        let form = backdrop.querySelector('#rating-form');
-        let rating = form.elements.rating.value|0;
-        let email = form.elements.email.value;
-        let review = form.elements.review.value;
-        console.log({exerciseId, rating, email, review});
-        patchRating(exerciseId, rating, email, review);
+        const form = backdrop.querySelector('#rating-form');
+        const rating = form.elements.rating.value|0;
+        const email = form.elements.email.value;
+        const review = form.elements.review.value;
+        const data = await patchRating(exerciseId, rating, email, review);
+        if (data) {
+          closeModal()
+        }
       }
 
       btn.outerHTML = renderSendBtn();
