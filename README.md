@@ -40,7 +40,7 @@ $ npm run dev
 This page will automatically reload after saving the changes to the project
 files.
 
-**<a href="https://vite.dev/" target="_blanc">Page Layout</a>**
+**<a href="https://www.figma.com/design/1ifqGcQBIzMoc21yIqyV5q/YourEnergy?node-id=0-1&p=f&t=XG5qebPJGfZ5XKnF-0" target="_blanc">Page Layout design</a>**
 
 ## Stay in touch
 
