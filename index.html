@@ -22,7 +22,7 @@
     />
     <script type="module" crossorigin src="/goit-js-final-project/index.js"></script>
     <link rel="modulepreload" crossorigin href="/goit-js-final-project/assets/vendor-C1ZlVBJv.js">
-    <link rel="modulepreload" crossorigin href="/goit-js-final-project/assets/pagination-D7-POAVy.js">
+    <link rel="modulepreload" crossorigin href="/goit-js-final-project/assets/pagination-QYv63mFT.js">
     <link rel="stylesheet" crossorigin href="/goit-js-final-project/assets/pagination-Cqf1UHbk.css">
   </head>
   <body>
@@ -142,7 +142,9 @@
 
   <div class="exercises-filter">
     <form class="exercises-filter__search visually-hidden">
+      <label for="search-exercises"></label>
       <input
+        id="search-exercises"
         type="text"
         name="search"
         class="search-input"
@@ -280,6 +282,7 @@
             type="email"
             class="footer-input"
             placeholder="Email"
+            pattern="^\w+(\.\w+)?@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$"
             required
           />
           <button type="submit" class="button light">Send</button>
@@ -350,8 +353,6 @@
   </div>
 </div>
 
-
-    
 
   </body>
 </html>

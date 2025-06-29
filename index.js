@@ -1,4 +1,4 @@
-import{S as n,c as h,g as _,r as q,a as T,b as R,p as U,l as B,d as A}from"./assets/pagination-D7-POAVy.js";import"./assets/vendor-C1ZlVBJv.js";const f=t=>t==="Body parts"?"bodypart":t.replace(/\s/g,"").toLowerCase(),O=t=>{const{name:r,imgURL:s,filter:i}=t;return`
+import{S as n,c as h,g as _,r as q,a as T,b as R,p as U,l as B,d as A}from"./assets/pagination-QYv63mFT.js";import"./assets/vendor-C1ZlVBJv.js";const f=t=>t==="Body parts"?"bodypart":t.replace(/\s/g,"").toLowerCase(),O=t=>{const{name:r,imgURL:s,filter:i}=t;return`
     <li class="exercises-content__item" data-filter="${f(i)}" data-exercise="${r.toLowerCase()}">
       <img
         src="${s}"
