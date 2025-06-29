@@ -82,9 +82,9 @@ const uiUtils = {
 const responsiveUtils = {
   calculateLimit: (windowWidth, isExercisesList = false) => {
     if (isExercisesList) return SECTION_EXERCISE_CONFIG.LIMITS.EXERCISES_LIST;
-    return windowWidth >= SECTION_EXERCISE_CONFIG.BREAKPOINTS.DESKTOP_LARGE
+    return windowWidth >= SECTION_EXERCISE_CONFIG.BREAKPOINTS.TABLET
       ? SECTION_EXERCISE_CONFIG.LIMITS.DESKTOP_LARGE
-      : SECTION_EXERCISE_CONFIG.LIMITS.DESKTOP;
+      : SECTION_EXERCISE_CONFIG.LIMITS.TABLET;
   },
 
   updateLimit: (windowWidth = window.innerWidth) => {
