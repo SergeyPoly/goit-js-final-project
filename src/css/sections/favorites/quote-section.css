@@ -56,10 +56,10 @@
 .fact-card, .fact-support-image {
   width: 335px;
   height: 119px;
-  margin-bottom: 20px;
 }
 
 .fact-card {
+  margin-bottom: 20px;
   display: flex;
   flex-direction: column;
   border-radius: 20px;
@@ -150,11 +150,11 @@
   .fact-card, .fact-support-image {
     width: 344px;
     height: 141px;
-    margin: 0;
   }
 
   .fact-card {
     padding: 25px;
+    margin: 0;
   }
 
   .fact-time-value {

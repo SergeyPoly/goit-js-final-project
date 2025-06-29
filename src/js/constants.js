@@ -12,7 +12,7 @@ export const EXERCISE_ACTIONS = Object.freeze({
 export const SECTION_EXERCISE_CONFIG = Object.freeze({
   LIMITS: {
     DESKTOP_LARGE: 12,
-    DESKTOP: 9,
+    TABLET: 9,
     EXERCISES_LIST: 10
   },
   BREAKPOINTS: {
