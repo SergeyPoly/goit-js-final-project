@@ -90,7 +90,13 @@
 
 .bottom-tags-container {
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+
+  @media screen and (min-width: 375px) {
+    justify-content: space-between;
+  }
 }
 
 .hashtag {

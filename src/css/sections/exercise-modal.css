@@ -10,7 +10,7 @@
 
   opacity: 0;
   pointer-events: none;
-  overflow: hidden auto;
+  overflow: hidden;
 
   transition: opacity var(--modal-transition),
     visibility var(--modal-transition);
@@ -22,13 +22,36 @@
 }
 
 .exercise-modal {
+  overflow-y: auto;
+  height: 95dvh;
+  max-height: fit-content;
   color: var(--primary);
   background: var(--secondary);
-  width: 335px;
+  width: 100%;
+  max-width: 335px;
   padding: 40px 20px;
   border-radius: 16px;
   position: relative;
-  margin-top: 60px;
+
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary) transparent;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 8px;
+    opacity: 0.7;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
 }
 
 .exercise-modal__content {
@@ -54,7 +77,12 @@
 }
 
 .exercise-modal__image-wrapper {
-  min-width: 295px;
+  width: 100%;
+
+  @media screen and (min-width: 768px) {
+    width: unset;
+    min-width: 295px;
+  }
 }
 
 .exercise-modal__image {
@@ -188,6 +216,7 @@
 @media (min-width: 768px) {
   .exercise-modal {
     margin-top: 0;
+    max-width: unset;
     width: 704px;
     padding: 32px;
   }

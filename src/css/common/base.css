@@ -117,6 +117,40 @@ main,
   color: var(--secondary);
 }
 
+.scroll-to-top-btn {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 50;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: none;
+  background: var(--secondary);
+  cursor: pointer;
+
+  @media (min-width: 768px) {
+    width: 100px;
+    height: 100px;
+  }
+
+  .logo-icon {
+    width: 9px;
+    height: 9px;
+    stroke: var(--primary);
+    transition: all var(--primary-transition);
+    transform: rotate(-90deg);
+
+    @media (min-width: 768px) {
+      width: 33px;
+      height: 33px;
+    }
+  }
+}
+
 @media (min-width: 768px) {
   .container {
     max-width: 768px;
