@@ -1,4 +1,5 @@
-// Создание кнопки
+import { getIconPath } from '../utils/get-icon-path';
+
 const createScrollToTopBtn = () => {
   const btn = document.createElement('button');
   btn.id = 'scrollToTopBtn';
@@ -7,7 +8,7 @@ const createScrollToTopBtn = () => {
 
   btn.innerHTML = `
     <svg class="logo-icon" width="28" height="28">
-      <use href="./img/icons.svg#arrow-icon-default"></use>
+      <use href="${getIconPath('arrow-icon-default')}"></use>
     </svg>
   `;
 
