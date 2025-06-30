@@ -324,6 +324,7 @@ exercisesSearchInput.addEventListener('input', e => {
 
 window.addEventListener('popstate', () => {
   onLoad();
+  updateActiveLinkAndUnderline();
 });
 
 const onLoad = () => {

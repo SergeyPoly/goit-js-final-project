@@ -26,7 +26,7 @@ function moveNavUnderline(fromLink = null, toLink = null) {
   }
 }
 
-function updateActiveLinkAndUnderline() {
+export function updateActiveLinkAndUnderline() {
   const navLinks = document.querySelectorAll('.nav-link');
   let currentPath = window.location.pathname;
   if (currentPath.endsWith('/') || currentPath.endsWith('/index.html')) {
