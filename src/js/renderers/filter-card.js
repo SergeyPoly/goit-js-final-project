@@ -6,16 +6,18 @@ export const renderFilterCard = (exercise) => {
 
   return `
     <li class="exercises-content__item" data-filter="${toLowerCaseFilter(filter)}" data-exercise="${name.toLowerCase()}">
-      <img
-        src="${imgURL}"
-        alt="Abs"
-        class="exercises-content__image"
-      />
+      <a href="#" class="exercises-content__link">
+        <img
+          src="${imgURL}"
+          alt="Abs"
+          class="exercises-content__image"
+        />
 
-      <div class="exercises-content__text">
-        <h3 class="exercises-content__title">${name}</h3>
-        <p class="exercises-content__description">${filter}</p>
-      </div>
+        <div class="exercises-content__text">
+          <h3 class="exercises-content__title">${name}</h3>
+          <p class="exercises-content__description">${filter}</p>
+        </div>
+      </a>
     </li>
   `
 }
