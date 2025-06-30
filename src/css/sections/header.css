@@ -102,4 +102,36 @@
   .nav-social {
     display: flex;
   }
+
+  .nav-list {
+    position: relative;
+
+    --nav-transition: 0.6s cubic-bezier(.68,-0.55,.27,1.55), width 0.4s cubic-bezier(.68,-0.55,.27,1.55);
+  }
+
+  .nav-underline {
+    padding: 8px 0;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    height: calc(100% - 16px);
+    background: var(--primary);
+    border-radius: 26px;
+    z-index: 0;
+    transition: left var(--nav-transition), width var(--nav-transition);
+    will-change: left, width;
+    pointer-events: none;
+  }
+  .nav-link {
+    position: relative;
+    z-index: 1;
+    transition: all var(--nav-transition);
+
+    &.active {
+      background-color: transparent;
+      transition: all var(--nav-transition);
+    }
+  }
+  
 }
