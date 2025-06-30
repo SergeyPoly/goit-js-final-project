@@ -162,5 +162,5 @@ import{i as U,a as q,E as j}from"./vendor-C1ZlVBJv.js";(function(){const t=docum
         ${h("right",!1,e+1,u)}
         ${h("right",!0,t,u)}
       </div>
-    `}s.insertAdjacentHTML("beforeend",i),s.onclick=u=>{const x=u.target.nodeName==="BUTTON"?u.target:u.target.closest(".pagination button");if(x){const T=parseInt(x.dataset.page,10);T!==e&&n(T)}}}function Se(){const e=document.querySelector(".pagination");e&&e.remove()}export{F as E,ge as S,$e as a,he as b,Se as c,ye as d,S as e,we as f,Ee as g,G as h,xe as l,be as p,Le as r};
-//# sourceMappingURL=pagination-toLlALgX.js.map
+    `}s.insertAdjacentHTML("beforeend",i),s.onclick=u=>{const x=u.target.nodeName==="BUTTON"?u.target:u.target.closest(".pagination button");if(x){const T=parseInt(x.dataset.page,10);T!==e&&n(T)}}}function Se(){const e=document.querySelector(".pagination");e&&e.remove()}export{F as E,ge as S,$e as a,he as b,Se as c,f as d,ye as e,S as f,Ee as g,we as h,G as i,xe as l,be as p,Le as r};
+//# sourceMappingURL=pagination-B5riHGMT.js.map
